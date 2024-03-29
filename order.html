@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Website</title>
+
+    <!-- Link CSS file -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <section class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="#" title="Logo">
+                    <img src="images/logo2.png" alt="Restaurant Logo" class="img-responsive">
+                </a>
+            </div>
+
+            <div class="menu text-right">
+                <ul>
+                    <li>
+                        <a href="index.html">Trang chủ</a>
+                    </li>
+                    <li>
+                        <a href="categories.html">Danh mục</a>
+                    </li>
+                    <li>
+                        <a href="foods.html">Món ăn</a>
+                    </li>
+                    <li>
+                        <a href="#">Liên hệ</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </section>
+
+    <!-- Order Form -->
+    <section class="food-search">
+        <div class="container">
+            
+            
+
+            <form action="#" class="order background-order">
+                <br>
+                <h2 class="text-center text-white">Nhập đầy đủ thông tin để đặt món</h2>
+                <fieldset>
+                    <legend>Món được chọn</legend>
+
+                    <div class="food-menu-img">
+                        <img src="images/pizza2.jpg" alt="Pizza" class="img-responsive img-curve">
+                    </div>
+    
+                    <div class="food-menu-desc">
+                        <h3>Food Title</h3>
+                        <p class="food-price">25.000vnđ</p>
+
+                        <div class="order-label">Số lượng</div>
+                        <input type="number" name="qty" class="input-responsive" value="1" required>
+                        
+                    </div>
+
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Thông tin khách hàng</legend>
+                    <div class="order-label">Họ tên</div>
+                    <input type="text" name="full-name" placeholder="Họ tên khách hàng" class="input-responsive" required>
+
+                    <div class="order-label">Số điện thoại</div>
+                    <input type="tel" name="contact" placeholder="0-xxx-xxx-xxx" class="input-responsive" required>
+
+                    <div class="order-label">Email</div>
+                    <input type="email" name="email" placeholder="email@gmail.com" class="input-responsive" required>
+
+                    <div class="order-label">Địa chỉ</div>
+                    <textarea name="address" rows="10" placeholder="Địa chỉ khách hàng" class="input-responsive" required></textarea>
+
+                    <input type="submit" name="submit" value="Đặt món" class="btn btn-primary">
+                </fieldset>
+
+            </form>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section class="social">
+        <div class="container text-center">
+            <ul>
+                <li>
+                    <a href="#"><img src="https://img.icons8.com/fluent/50/000000/facebook-new.png"/></a>
+                </li>
+                <li>
+                    <a href="#"><img src="https://img.icons8.com/fluent/48/000000/instagram-new.png"/></a>
+                </li>
+                <li>
+                    <a href="#"><img src="https://img.icons8.com/fluent/48/000000/twitter.png"/></a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="footer">
+        <div class="container text-center">
+            <p>2024 @<a href="#"> FastFood-PHP</a></p>
+        </div>
+    </section>
+
+</body>
+</html>
