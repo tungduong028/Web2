@@ -34,12 +34,10 @@
 }
 
 a{
-    color: #1e90ff;
+
     text-decoration: none;
 }
-a:hover{
-    color: #3742fa;
-}
+
 
 .btn{
     padding: 1%;
@@ -48,7 +46,7 @@ a:hover{
     border-radius: 5px;
 }
 .btn-primary{
-    background-color: #1e90ff;
+    background-color: #5f27cd;
     color: white;
     cursor: pointer;
 }
@@ -83,10 +81,12 @@ fieldset{
 /* Header */
 .navbar{
     height: 100px;
+    background-color: #1B1464;
 }
 .logo{
     width: 10%;
     float: left;
+    
 }
 .menu{
     line-height: 60px;
@@ -99,9 +99,14 @@ fieldset{
     display: inline;
     padding: 1%;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 23px;
 }
-
+.menu ul li a{
+    color: white;
+}
+.menu ul li a:hover{
+    color: #7efff5;
+}
 
 /* Food Search Section */
 
@@ -170,6 +175,18 @@ fieldset{
 
 
 /* Footer */
+.footer{
+    padding-bottom: 10px;
+    background-color: #1B1464;
+    color: white;
+}
+.footer a{
+    color: white;
+}
+.social{
+    background-color: #1B1464;
+    padding-top: 10px;
+}
 .social ul{
     list-style-type: none;
 }
