@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    define('SITEURL', 'http://localhost/fast-food-php/');
+    define('SITEURL', 'http://localhost/PHP/Web2/');
     define('LOCALHOST', 'localhost');
     define('DB_USERNAME', 'root');
     define('DB_PASSWORD', '');
