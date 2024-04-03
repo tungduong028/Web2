@@ -5,18 +5,47 @@
         <div class="main-content">
             <div class="wrapper">
                 <h1>Manage Admin</h1>
+
                 <br>
+
                 <?php
-                    if(isset($_SESSION['add'])){
+                    if(isset($_SESSION['add']))
+                    {
                         echo $_SESSION['add'];
                         unset($_SESSION['add']);
                     }
+
+                    if(isset($_SESSION['delete']))
+                    {
+                        echo $_SESSION['delete'];
+                        unset($_SESSION['delete']);
+                    }
+
+                    if(isset($_SESSION['update']))
+                    {
+                        echo $_SESSION['update'];
+                        unset($_SESSION['update']);
+                    }
+
+                    if(isset($_SESSION['password-not-match']))
+                    {
+                        echo $_SESSION['password-not-match'];
+                        unset($_SESSION['password-not-match']);
+                    }
+
+                    if(isset($_SESSION['change-pwd']))
+                    {
+                        echo $_SESSION['change-pwd'];
+                        unset($_SESSION['change-pwd']);
+                    }
+
                 ?>
+                <br><br><br>
 
-
-                <br><br>
+                <!-- Button to add admin -->
                 <a href="add-admin.php" class="btn-add">Add Admin</a>
-                <br /><br />
+
+                <br /><br /><br />
 
                 <table class="table-full">
                     <tr>
@@ -43,8 +72,9 @@
                                     <td><?php echo $full_name?></td>
                                     <td><?php echo $username?></td>
                                     <td>
-                                        <a href="#" class="btn-update">Update</a>
-                                        <a href="#" class="btn-delete">Delete</a>
+                                        <a href="<?php echo SITEURL; ?>admin/update-password.php?id=<?php echo $id; ?>" class="btn-add">Change Password</a>
+                                        <a href="<?php echo SITEURL; ?>admin/update-admin.php?id=<?php echo $id; ?>" class="btn-update">Update</a>
+                                        <a href="<?php echo SITEURL; ?>admin/delete-admin.php?id=<?php echo $id; ?>" class="btn-delete">Delete</a>
                                     </td>
                                 </tr>
                                 <?php
