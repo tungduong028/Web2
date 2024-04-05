@@ -12,12 +12,14 @@ include('../admin/config/constants.php');
     //remove physical img is valaible
     if ($image != "") {
         # remove img
-        $path="/images/category/".$image;
-        if (file_exists($path)) {
-            unlink($path);
+        $path="../images/category/".$image;
+        if ($path != "") {
+          $remove = unlink($path);
+            
         }
         if ($remove == false) {
             # set session message
+            
             $_SESSION['remove'] = "<div class='error'> Faile to remove category </div>";
             header('location:'.SITEURL.'admin/manage-category.php');
             die();
