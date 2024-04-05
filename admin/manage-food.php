@@ -31,7 +31,7 @@
 
                     <?php
                         //create a SQL Query to get all the food
-                        $sql = "SELECT * FROM tbl_food";
+                        $sql = "SELECT * FROM food";
 
                         //execute the quey
                         $res = mysqli_query($conn, $sql);

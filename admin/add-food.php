@@ -46,7 +46,7 @@
                             <?php
                                 // Create PHP Code to display categories from Database
                                 //1. Create SQL to get all active categories from Database
-                                $sql = "SELECT * FORM tbl_category WHERE active='Yes'";
+                                $sql = "SELECT * FORM category WHERE active='Yes'";
 
                                 $res = mysqli_query($conn, $sql);
 
@@ -186,7 +186,7 @@
 
                 // create a SQL query to save or add food
                 // for numerical we do not need to pass value inside quotes ''. But for string value it is compulsory to add quotes ''
-                $sql2 = "INSERT INTO tbl_food SET
+                $sql2 = "INSERT INTO food SET
                     title = '$title',
                     description = '$description',
                     price = $price,
