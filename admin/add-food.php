@@ -1,4 +1,4 @@
-<?php include('partial/menu.php'); ?>
+<?php include('../admin/patials/menu.php'); ?>
 
 <div class="main-content">
     <div class="wrapper">
