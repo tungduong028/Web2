@@ -218,5 +218,5 @@
     </div>
 </div>
 
-<?php include('../admin/partial/footer.php'); ?>
+<?php include('../admin/partials/footer.php'); ?> 
 
