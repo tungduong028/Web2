@@ -16,9 +16,9 @@
         <form action="" method="POST" enctype="multipart/form-data"> 
             <table class="tbl-30">
                 <tr>
-                    <td>Title: </td>
+                    <td>Name: </td>
                     <td>
-                        <input type="text" name="title" placeholder="Title of the Food">
+                        <input type="text" name="name" placeholder="Name of the Food">
                     </td>
                 </tr>
                 <tr>
@@ -111,7 +111,7 @@
                 //echo clicked
 
                 //1. Get the data from form
-                $title = $_POST['title'];
+                $name = $_POST['name'];
                 $description = $_POST['description'];
                 $price = $_POST['price'];
                 $category_id = $_POST['category'];
@@ -201,7 +201,7 @@
                 // create a SQL query to save or add food
                 // for numerical we do not need to pass value inside quotes ''. But for string value it is compulsory to add quotes ''
                 $sql2 = "INSERT INTO food SET
-                    name = '$title',
+                    name = '$name',
                     description = '$description',
                     price = $price,
                     image = '$image',
