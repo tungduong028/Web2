@@ -1,4 +1,4 @@
-<?php include('../config/menu.php'); ?> 
+<?php include('../admin/patials/menu.php'); ?> 
 
 <?php
     //check whether id is set or not
@@ -6,19 +6,19 @@
         $id = $_GET['id'];
 
         //SQL query to get the selected food
-        $sql2 = "SELECT *FROM tbl_food WHERE id=$id";
+        $sql2 = "SELECT * FROM food WHERE id=$id";
         //execute the query
         $res2 = mysqli_query($conn, $sql2);
         
         $row2 = mysqli_fetch_assoc($res2);
 
         //get the individual vale of selected food
-        $title = $row2['title'];
+        $name = $row2['name'];
         $description = $row2['description'];
         $price = $row2['price'];
-        $current_image = $row2['image_name'];
+        $current_image = $row2['image'];
         $current_category = $row2['category_id'];
-        $featured = $row2['featured'];
+        $show_on_home = $row2['show_on_home'];
         $active = $row2['active'];
 
     }else{
@@ -33,21 +33,21 @@
         <form action="" method="POST" enctype="multipart/form-data">
             <table class="tbl-30">
                 <tr>
-                    <td>Title: </td>
+                    <td>Name: </td>
                     <td>
-                        <input type="text" name="title" value="echo <?php $title; ?>" placeholder="Title of the Food">
+                        <input type="text" name="name" value=" <?php echo $name; ?>" placeholder="Name of the Food">
                     </td>
                 </tr>
                 <tr>
                     <td>Description: </td>
                     <td>
-                        <textarea name="description" cols="30" rows="5" placeholder="Description of the Food">echo <?php $description; ?></textarea>
+                        <textarea name="description" cols="30" rows="5" placeholder="Description of the Food"> <?php echo $description; ?></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td>Price: </td>
                     <td>
-                        <input type="number" name="price" value="echo <?php $price; ?>" placeholder="Price of the Food">
+                        <input type="number" name="price" value="<?php echo $price; ?>" placeholder="Price of the Food">
                     </td>
                 </tr>
                 <tr>
@@ -75,7 +75,7 @@
                     <td>
                         <select name="category">
                             <?php
-                                $sql = "SELECT * FROM tbl_category WHERE active='Yes'";
+                                $sql = "SELECT * FROM category WHERE active='Yes'";
 
                                 //execute the query
                                 $res = mysqli_query($conn, $sql);
@@ -105,10 +105,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Featured: </td>
+                    <td>Show on home: </td>
                     <td>
-                        <input <?php if($featured=="Yes") {echo "checked";} ?> type="radio" name="featured" value="Yes"> Yes
-                        <input  <?php if($featured=="No") {echo "checked";} ?> type="radio" name="featured" value="No"> No
+                        <input <?php if($show_on_home=="Yes") {echo "checked";} ?> type="radio" name="show_on_home" value="Yes"> Yes
+                        <input  <?php if($show_on_home=="No") {echo "checked";} ?> type="radio" name="show_on_home" value="No"> No
                     </td>
                 </tr>
                 <tr>
@@ -132,75 +132,79 @@
             if(isset($_POST['submit'])){
                 //1. get all the details from the form
                 $id = $_POST['id'];
-                $title = $_POST['title'];
+                $name = $_POST['name'];
                 $description = $_POST['description'];
                 $price = $_POST['price'];
                 $current_image = $_POST['current_image'];
                 $category = $_POST['category'];
-                $featured = $_POST['featured'];
+                $show_on_home = $_POST['show_on_home'];
                 $active = $_POST['active'];
 
                 //2. upload the img if selected
                 if(isset($_FILES['image']['name'])){
-                    $image_name = $_FILES['image']['name'];
-                    if($image_name != ""){
+                    $image = $_FILES['image']['name'];
+                    if($image != ""){
 
                         //A. Upload new img
-                        $ext = end(explode('.', $image_name));
-                        $image_name = "Food-Name".rand(0000,9999).'.'.$ext;
+                        //$ext = end(explode('.', $image));
+                        $image_parts = explode('.', $image);
+                        $ext = end($image_parts);
+
+
+                        //Create New name for image
+                        $image = "Food-Name".rand(0000,9999).".".$ext;
 
                         //get the src path and destination path
-                        $src_path= $_FILES(['image']['tmp_name']);
-                        $dest_path = "../images/food/".$image_name;
+                        $src_path= $_FILES['image']['tmp_name'];
+                        $dest_path = "../images/food/".$image;
 
                         //upload the img
                         $upload = move_uploaded_file($src_path, $dest_path);
 
-                        if ($upload=false){
+                        if ($upload== false){
                             //failed to upload
                             $_SESSION['upload'] = "<div class'error'>failed to upload new image</div>";
-                            header('location'.SITEURL.'admin/manage-food.php');
+                            header('location:'.SITEURL.'admin/manage-food.php');
                             die();
                         }
                         //3. remove the img if new img is uploaded and current img exists
 
                         //B. Remove current img if available
-                        if($current_image1=""){
+                        if($current_image != ""){
                             //remove the img
                             $remove_path = "../images/food/".$current_image;
 
-                            $remove = unlink(remove_path);
+                            $remove = unlink($remove_path);
                             if ($remove == false){
                                 $_SESSION['remove-failed'] = "<div class'error'>Fail to remove current image</div>";
-                                hearder('location'.SITEURL.'admin/manage-food.php');
+                                header('location:'.SITEURL.'admin/manage-food.php');
                                 die();
                             }
                         }
                     }
                 }else{
-                    $image_name = $current_image;
+                    $image = $current_image;
                 }
 
                 //4. update the food in db
-                $sql3 = "UPDATE tbl_food SET
-                    title = '$title', 
+                $sql3 = "UPDATE food SET
+                    name = '$name', 
                     description = '$description', 
                     price = $price, 
-                    image_name = '$image_name', 
+                    image = '$image', 
                     category_id = '$category', 
-                    featured = '$featured', 
-                    active = '$active', 
-                    WHERE id=$id
-                ";
+                    show_on_home = '$show_on_home', 
+                    active = '$active'
+                    WHERE id=$id";
                 //execute the SQL query
                 $res3 = mysqli_query($conn, $sql3);
 
                 if($res3==true){
                     $_SESSION['update'] = "<div class='success'>Food updated successfully.</div>";
-                    header('location'.SITEURL.'admin/manage-food.php');
+                    header('location:'.SITEURL.'admin/manage-food.php');
                 }else{
                     $_SESSION['update'] = "<div class='error'>Failed to updated food.</div>";
-                    header('location'.SITEURL.'admin/manage-food.php');
+                    header('location:'.SITEURL.'admin/manage-food.php');
                 }
                 //redirect to manage food with session msg
             }
@@ -209,4 +213,4 @@
     </div>
 </div>
 
-<?php include('../config/footer.php'); ?> 
+<?php include('../admin/patials/footer.php'); ?> 
