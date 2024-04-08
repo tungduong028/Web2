@@ -35,20 +35,36 @@
 
                 ?>
 
+                <?php
+                    if(isset($_SESSION['upload']))
+                    {
+                        echo $_SESSION['upload'];
+                        unset($_SESSION['upload']);
+                    }
+                ?>
+
+                <?php
+                    if(isset($_SESSION['upload']))
+                    {
+                        echo $_SESSION['upload'];
+                        unset($_SESSION['upload']);
+                    }
+                ?>
+
                 <table class="table-full">
                     <tr>
                         <th>S.N</th>
-                        <th>Title</th>
+                        <th>Name</th>
                         <th>Price</th>
                         <th>Image</th>
-                        <th>Featured</th>
+                        <th>show on home</th>
                         <th>Active</th>
                         <th>Action</th>
                     </tr>
 
                     <?php
                         //create a SQL Query to get all the food
-                        $sql = "SELECT * FROM tbl_food";
+                        $sql = "SELECT * FROM food";
 
                         //execute the quey
                         $res = mysqli_query($conn, $sql);
@@ -65,10 +81,10 @@
                             while($row=mysqli_fetch_assoc($res))
                             {
                                 $id = $row['id'];
-                                $title = $row['title'];
+                                $name = $row['name'];
                                 $price = $row['price'];
-                                $image_name = $row['image_name'];
-                                $featured = $row['featured'];
+                                $image = $row['image'];
+                                $show_on_home = $row['show_on_home'];
                                 $active = $row['active'];
 
                                 ?> 
@@ -80,7 +96,7 @@
                                         </td>
                                         <td>
                                             <?php
-                                                echo $title;
+                                                echo $name;
                                             ?>
                                         </td>
                                         <td>
@@ -90,21 +106,21 @@
                                         </td>
                                         <td>
                                             <?php
-                                                if($image_name=="")
+                                                if($image=="")
                                                 {
                                                     echo "<div class='error'>Image not added.</div>";
                                                 }
                                                 else
                                                 {
                                                     ?>
-                                                        <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" width="100px">
+                                                        <img src="<?php echo SITEURL; ?>images/food/<?php echo $image; ?>" width="100px">
                                                     <?php
                                                 }
                                             ?>
                                         </td>
                                         <td>
                                             <?php
-                                                echo $featured;
+                                                echo $show_on_home;
                                             ?>
                                         </td>
                                         <td>
@@ -113,8 +129,8 @@
                                             ?>
                                         </td>
                                         <td>
-                                            <a href="#" class="btn-secondary">Update </a>
-                                            <a href="#" class="btn-danger">Delete</a>
+                                            <a href="#" class="btn-update">Update </a>
+                                            <a href="#" class="btn-delete">Delete</a>
                                         </td>
                                     </tr>
                                 <?php
@@ -139,8 +155,8 @@
                         <td>Yes</td>
                         <td>Yes</td>
                         <td>
-                            <a href="<?php echo SITEURL; ?>admin/update-food.php?id=<?php echo $id; ?>" class="btn-secondary">Update Food</a>
-                            <a href="<?php echo SITEURL; ?>admin/delete-food.php?id=<?php echo $id; ?>&image_name=<?php echo $image_name; ?>" class="btn-danger">Delete Food</a>
+                            <a href="<?php echo SITEURL; ?>admin/update-food.php?id=<?php echo $id; ?>" class="btn-update">Update Food</a>
+                            <a href="<?php echo SITEURL; ?>admin/delete-food.php?id=<?php echo $id; ?>&image_name=<?php echo $image_name; ?>" class="btn-delete">Delete Food</a>
                         </td>
                     </tr>
 
