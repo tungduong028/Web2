@@ -6,6 +6,13 @@
         <br><br>
 
         <?php
+            if(isset($_SESSION['add']))
+            {
+                echo $_SESSION['add'];
+                unset($_SESSION['add']);
+            }
+        ?>
+        <?php
             if(isset($_SESSION['upload']))
             {
                 echo $_SESSION['upload'];
@@ -148,12 +155,7 @@
                         // A. Rename the 
                         //Get the extention of selectec image (jpg, png, gif, etc,... ) "fast-food.jpg"
 
-                        ### $ext = end(explode('.', $image));
-
-                        $image_name_parts = explode('.', $image);
-                        $ext = end($image_name_parts);
-                        // echo $ext;
-                        // die();
+                        $ext = end(explode('.', $image));
 
                         //Create New name for image
                         $image = "Food-Name".rand(0000,9999).".".$ext; //New
@@ -182,7 +184,7 @@
                             //failed to upload the image
                             //redirect to add foor page with error message
                             $_SESSION['upload']="<div class='error'>Failed to upload image.</div>";
-                            header('location: '.SITEURL.'admin/add-food.php');
+                            header('location:'.SITEURL.'admin/add-food.php');
                             
                             //stop the process
                             die();
