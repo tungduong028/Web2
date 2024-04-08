@@ -103,7 +103,7 @@
                                <td><?php echo $show_on_home; ?></td>
                                <td><?php echo $active; ?></td>
                                <td>
-                                  <a href="<?php echo SITEURL;?>admin/update-category.php?id=<?php echo $id; ?>" class="btn-update">Update Category</a>
+                                  <a href="<?php echo SITEURL;?>admin/update-category.php?id=<?php echo $id; ?>&image=<?php echo $image;?>" class="btn-update">Update Category</a>
                                   <a href="<?php echo SITEURL;?>admin/delete-category.php?id=<?php echo $id; ?>&image=<?php echo $image;?>" class="btn-delete">Delete Category</a>
                                </td>
                               </tr>

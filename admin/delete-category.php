@@ -7,15 +7,16 @@ include('../admin/config/constants.php');
 //check id and img value is set or not
   if (isset($_GET['id']) AND isset($_GET['image'])) {
     # get value and delete
+    
     $id = $_GET['id'];
     $image = $_GET['image'];
     //remove physical img is valaible
     if ($image != "") {
         # remove img
         $path="../images/category/".$image;
+        echo $path; 
         if ($path != "") {
-          $remove = unlink($path);
-            
+          $remove = unlink($path);  
         }
         if ($remove == false) {
             # set session message

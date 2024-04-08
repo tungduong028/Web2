@@ -108,7 +108,11 @@
             $featured = $_POST['show_on_home'];
             $active = $_POST['active'];
             //upate img
-
+            // echo $title;
+            // echo $current_image;
+            // echo $featured;
+            // echo $active;
+            // die();
             //check img
             if (isset($_FILES['image']['name'])) {
                 # get details
@@ -133,13 +137,17 @@
                     }
 
                     //remove old img
+                    // echo $current_image;
+                    // die();
+
                     if ($current_image != "") {
                         $remove_path = "../images/category/".$current_image;
                         $remove = unlink($remove_path);
                         //check whether remove img
+                        echo $remove;
                         if ($remove == false) {
                         $_SESSION['update_remove_img'] = "<div class='error'> Faile to remove current img </div>";
-                        header('location:'.SITEURL.'admin/manage-category.php');
+                        //header('location:'.SITEURL.'admin/manage-category.php');
                         die();
                     }
                     }
