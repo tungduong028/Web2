@@ -17,6 +17,26 @@
                         unset($_SESSION['add']);
                     }
                 ?>
+                <?php
+                    if(isset($_SESSION['delete'])){
+                        echo $_SESSION['delete'];
+                        unset($_SESSION['delete']);
+                    }
+                ?>
+                
+                <?php
+                    if(isset($_SESSION['unauthorize'])){
+                        echo $_SESSION['unauthorize'];
+                        unset($_SESSION['unauthorize']);
+                    }
+                ?>
+                <?php
+                    if(isset($_SESSION['update'])){
+                        echo $_SESSION['update'];
+                        unset($_SESSION['update']);
+                    }
+
+                ?>
 
                 <?php
                     if(isset($_SESSION['upload']))
@@ -25,6 +45,8 @@
                         unset($_SESSION['upload']);
                     }
                 ?>
+
+                
 
                 <table class="table-full">
                     <tr>
@@ -104,8 +126,8 @@
                                             ?>
                                         </td>
                                         <td>
-                                            <a href="#" class="btn-update">Update </a>
-                                            <a href="#" class="btn-delete">Delete</a>
+                                            <a href="<?php echo SITEURL; ?>admin/update-food.php?id=<?php echo $id; ?>" class="btn-update">Update Food</a>
+                                            <a href="<?php echo SITEURL; ?>admin/delete-food.php?id=<?php echo $id; ?>&image=<?php echo $image; ?>" class="btn-delete">Delete Food</a>
                                         </td>
                                     </tr>
                                 <?php
@@ -125,13 +147,13 @@
                     <tr>
                         <td>1. </td>
                         <td>Burger King</td>
-                        <td>50.000vnd</td>
+                        <td>150.000vnd</td>
                         <td>Image</td>
                         <td>Yes</td>
                         <td>Yes</td>
                         <td>
-                            <a href="#" class="btn-update">Update </a>
-                            <a href="#" class="btn-delete">Delete</a>
+                            <a href="<?php echo SITEURL; ?>admin/update-food.php?id=<?php echo $id; ?>" class="btn-update">Update Food</a>
+                            <a href="<?php echo SITEURL; ?>admin/delete-food.php?id=<?php echo $id; ?>&image_name=<?php echo $image_name; ?>" class="btn-delete">Delete Food</a>
                         </td>
                     </tr>
 
