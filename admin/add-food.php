@@ -46,7 +46,9 @@
                             <?php
                                 // Create PHP Code to display categories from Database
                                 //1. Create SQL to get all active categories from Database
-                                $sql = "SELECT * FORM category WHERE active='Yes'";
+                                $sql = "SELECT * FROM category WHERE active='Yes'";
+                                // echo $sql;
+                                // die();
 
                                 $res = mysqli_query($conn, $sql);
 
@@ -80,10 +82,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Featured: </td>
+                    <td>show_on_home: </td>
                     <td>
-                        <input type="radio" name="featured" value="Yes"> Yes
-                        <input type="radio" name="featured" value="No"> No
+                        <input type="radio" name="show_on_home" value="Yes"> Yes
+                        <input type="radio" name="show_on_home" value="No"> No
                     </td>
                 </tr>
                 <tr>
@@ -112,16 +114,16 @@
                 $title = $_POST['title'];
                 $description = $_POST['description'];
                 $price = $_POST['price'];
-                $category = $_POST['category'];
+                $category_id = $_POST['category'];
 
-                //Check whether radio button for featured and active are checked or not
-                if(isset($_POST['featured']))
+                //Check whether radio button for show_on_home and active are checked or not
+                if(isset($_POST['show_on_home']))
                 {
-                    $featured = $_POST['featured'];
+                    $show_on_home = $_POST['show_on_home'];
                 }
                 else
                 {
-                    $featured = "No";
+                    $show_on_home = "No";
                 }
                 if(isset($_POST['active']))
                 {
@@ -137,40 +139,51 @@
                 if(isset($_FILES['image']['name']))
                 {
                     //Get the details of the selected image
-                    $image_name = $_FILES['image']['name'];
+                    $image = $_FILES['image']['name'];
 
                     //check whether the image is selected or not and upload image only if selected
-                    if($image_name!="")
+                    if($image!="")
                     {
                         //Image is selected
                         // A. Rename the 
                         //Get the extention of selectec image (jpg, png, gif, etc,... ) "fast-food.jpg"
-                        $ext = end(explode('.', $image_name));
+
+                        ### $ext = end(explode('.', $image));
+
+                        $image_name_parts = explode('.', $image);
+                        $ext = end($image_name_parts);
+                        // echo $ext;
+                        // die();
 
                         //Create New name for image
-                        $image_name = "Food-Name".rand(0000,9999).".".$ext; //New
+                        $image = "Food-Name".rand(0000,9999).".".$ext; //New
 
                         // B. upload the 
                         //get the src path and destination path
 
                         //src path is the current location of the image
-                        $src = $_FILES['image']['name'];
+                        $src = $_FILES['image']['tmp_name'];
+                        // echo $src;
+                        // die();
 
                         //destination path for the image to be uploaded
-                        $dst = "../images/food/".$image_name;
+                        $dst = "../images/food/".$image;
+                        echo $dst;
 
                         //finally upload the food image
                         $upload = move_uploaded_file($src, $dst);
 
                         //check whether image uploaded of not
+                        // echo $upload;
+                        // die();
 
                         if($upload==false)
                         {
                             //failed to upload the image
                             //redirect to add foor page with error message
                             $_SESSION['upload']="<div class='error'>Failed to upload image.</div>";
-                            header('location'.SITEURL.'admin/add-food.php');
-
+                            header('location: '.SITEURL.'admin/add-food.php');
+                            
                             //stop the process
                             die();
                         }
@@ -179,20 +192,21 @@
                 }
                 else
                 {
-                    $image_name = ""; //setting default value as blank
+                    $image = ""; //setting default value as blank
                 }
+                
 
                 //3. Insert into database
 
                 // create a SQL query to save or add food
                 // for numerical we do not need to pass value inside quotes ''. But for string value it is compulsory to add quotes ''
                 $sql2 = "INSERT INTO food SET
-                    title = '$title',
+                    name = '$title',
                     description = '$description',
                     price = $price,
-                    image_name = '$image_name',
+                    image = '$image',
                     category_id = '$category_id',
-                    featured = '$featured',
+                    show_on_home = '$show_on_home',
                     active = '$active'
                 ";
                 
@@ -204,12 +218,12 @@
                 if($res2 == true)
                 {
                     $_SESSION['add'] = "<div class='success'>Added Successfully.</div>";
-                    header('location'.SITEURL.'admin/manage-food.php');
+                    header('location:'.SITEURL.'admin/manage-food.php');
                 }
                 else
                 {
                     $_SESSION['add'] = "<div class='error'>Failed to add food.</div>";
-                    header('location'.SITEURL.'admin/manage-food.php');
+                    header('location:'.SITEURL.'admin/manage-food.php');
                 }
 
             }
@@ -218,5 +232,5 @@
     </div>
 </div>
 
-<?php include('../admin/partials/footer.php'); ?> 
+<?php include('../admin/patials/footer.php'); ?> 
 

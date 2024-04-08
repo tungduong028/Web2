@@ -104,7 +104,7 @@
            if (isset($_POST['submit'])) {
             //echo "<div class='success'> Update Done </div>";
             $title = $_POST['title'];
-            $current_image = $_POST['image'];
+            $current_image = $_POST['current_image'];
             $featured = $_POST['show_on_home'];
             $active = $_POST['active'];
             //upate img
