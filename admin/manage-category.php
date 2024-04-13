@@ -84,7 +84,7 @@
                             ?>
                              <tr>
                                
-                               <td><?php echo $sn++; ?></td>
+                               <td><?php echo $id; ?></td>
                                <td><?php echo $title; ?></td>
                                <td>
                                 <?php

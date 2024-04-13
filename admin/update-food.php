@@ -182,6 +182,9 @@
                             }
                         }
                     }
+                    else{
+                        $image = $current_image;
+                    }
                 }else{
                     $image = $current_image;
                 }

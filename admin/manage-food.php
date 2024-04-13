@@ -88,7 +88,7 @@
                                     <tr>
                                         <td> 
                                             <?php
-                                                echo $sn++;
+                                                echo $id;
                                             ?>
                                         </td>
                                         <td>
