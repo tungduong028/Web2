@@ -1,15 +1,15 @@
-<?php include('./config/constants.php'); ?>
+<?php include('../admin/config/constants.php'); ?>
 
 <html>
     <head>
-        <title>Login - Admin</title>
-        <link rel="stylesheet" href="../css/admin.css">
+        <title>Login</title>
+        <link rel="stylesheet" href="../css/customer.css">
     </head>
 
     <body>
         
         <div class="login">
-            <h1 class="text-center">Login - Admin</h1>
+            <h1 class="text-center">Login - Customer</h1>
             <br><br>
 
             <?php
@@ -37,10 +37,11 @@
                 
 
             <br><br>
-            <input type="submit" name="submit" value="Login" class="btn-add">
+            <input type="submit" name="submit" value="Login" class="btn-confirm"> <br><br>
 
-            <br><br>
-            <input type="submit" name="customer" value="I'm Customer" class="btn-add">
+            <input type="submit" name="sign-up" value="Sign Up" class="btn-confirm">
+
+            <input type="submit" name="admin" value="I'm Admin" class="btn-confirm">
             </form>
             <!-- Login Form End Here -->
 
@@ -54,10 +55,10 @@
 
     if(isset($_POST['submit']))
     {
-        echo $username = $_POST['username'];
-        echo $password = $_POST['password'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
 
-        $sql = "SELECT * FROM admin WHERE username = '$username' AND password = '$password'";
+        $sql = "SELECT * FROM customer WHERE username = '$username' AND password = '$password'";
 
         $res = mysqli_query($conn, $sql);
 
@@ -65,20 +66,35 @@
 
         if($count == 1)
         {
-            $_SESSION['login'] = "<div class='success'>Login Successful.</div>";
-            $_SESSION['user'] = $username;
-            header('location:'.SITEURL.'admin/');
+            $row = mysqli_fetch_assoc($res);
+            $status = $row['status'];
+            if($status == 1)
+            {
+                $_SESSION['login'] = "<div class='success'>Login Successful.</div>";
+                $_SESSION['user'] = $username;
+                header('location:'.SITEURL.'customer/');
+            }
+            else
+            {
+                $_SESSION['login'] = "<div class='error text-center'>Account has been locked.</div>";
+                header('location:'.SITEURL.'customer/login.php');
+            }   
         }
         else
         {
             $_SESSION['login'] = "<div class='error text-center'>Username or Password did not match.</div>";
-            header('location:'.SITEURL.'admin/login.php');
+            header('location:'.SITEURL.'customer/login.php');
         }
     }
 
-    if(isset($_POST['customer']))
+    if(isset($_POST['sign-up']))
     {
-        header('location:'.SITEURL.'customer/login.php');
+        header('location:'.SITEURL.'customer/sign-up.php');
+    }
+
+    if(isset($_POST['admin']))
+    {
+        header('location:'.SITEURL.'admin/login.php');
     }
 
 ?>
