@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 29, 2024 lúc 03:30 PM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.1.25
+-- Thời gian đã tạo: Th4 18, 2024 lúc 09:59 PM
+-- Phiên bản máy phục vụ: 10.4.28-MariaDB
+-- Phiên bản PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,8 @@ CREATE TABLE `admin` (
 INSERT INTO `admin` (`id`, `full_name`, `username`, `password`) VALUES
 (1, 'Dương Thanh Tùng', 'tung028', '123456'),
 (2, 'Thanh Tùng', 'tung029', '123456'),
-(3, 'Tùng', 'tung030', '123456');
+(11, 'Administrator', 'Administrator', 'admin'),
+(12, 'a', 'a', '1');
 
 -- --------------------------------------------------------
 
@@ -56,6 +57,30 @@ CREATE TABLE `category` (
   `show_on_home` varchar(10) NOT NULL,
   `active` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `customer`
+--
+
+CREATE TABLE `customer` (
+  `ID` int(10) UNSIGNED NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `address` text NOT NULL,
+  `phone` char(12) NOT NULL,
+  `status` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `customer`
+--
+
+INSERT INTO `customer` (`ID`, `username`, `password`, `name`, `address`, `phone`, `status`) VALUES
+(1, 'vuong', '333', 'Huynh Ba Vuong', 'TPHCM', '0933123456', 1),
+(2, 'huynhvuong', '123', 'Huynh Ba Vuong', 'Long An', '0909012359', 0);
 
 -- --------------------------------------------------------
 
@@ -111,6 +136,12 @@ ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Chỉ mục cho bảng `food`
 --
 ALTER TABLE `food`
@@ -130,13 +161,19 @@ ALTER TABLE `order_food`
 -- AUTO_INCREMENT cho bảng `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `food`
