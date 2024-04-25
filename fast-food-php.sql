@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 18, 2024 lúc 09:59 PM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Thời gian đã tạo: Th4 25, 2024 lúc 05:29 AM
+-- Phiên bản máy phục vụ: 10.4.32-MariaDB
+-- Phiên bản PHP: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -47,6 +47,30 @@ INSERT INTO `admin` (`id`, `full_name`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `cart`
+--
+
+CREATE TABLE `cart` (
+  `ID` int(20) NOT NULL,
+  `Food_ID` int(10) NOT NULL,
+  `User_ID` int(10) NOT NULL,
+  `Quantity` int(20) NOT NULL,
+  `Total` int(20) NOT NULL,
+  `Status` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `cart`
+--
+
+INSERT INTO `cart` (`ID`, `Food_ID`, `User_ID`, `Quantity`, `Total`, `Status`) VALUES
+(3, 1, 1, 1, 20000, 1),
+(4, 1, 1, 4, 80000, 1),
+(5, 1, 1, 1, 20000, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `category`
 --
 
@@ -58,6 +82,13 @@ CREATE TABLE `category` (
   `active` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `category`
+--
+
+INSERT INTO `category` (`id`, `title`, `image`, `show_on_home`, `active`) VALUES
+(2, 'burger', 'Food_category_6629c559b7ab4.jpg', 'Yes', 'Yes');
+
 -- --------------------------------------------------------
 
 --
@@ -65,7 +96,7 @@ CREATE TABLE `category` (
 --
 
 CREATE TABLE `customer` (
-  `ID` int(10) UNSIGNED NOT NULL,
+  `ID` int(10) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `name` varchar(100) NOT NULL,
@@ -80,7 +111,8 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`ID`, `username`, `password`, `name`, `address`, `phone`, `status`) VALUES
 (1, 'vuong', '333', 'Huynh Ba Vuong', 'TPHCM', '0933123456', 1),
-(2, 'huynhvuong', '123', 'Huynh Ba Vuong', 'Long An', '0909012359', 0);
+(2, 'huynhvuong', '123', 'Huynh Ba Vuong', 'Long An', '0909012359', 1),
+(3, 'tung', '123', 'thanh tung', 'HCM', '0333333333', 1);
 
 -- --------------------------------------------------------
 
@@ -89,7 +121,7 @@ INSERT INTO `customer` (`ID`, `username`, `password`, `name`, `address`, `phone`
 --
 
 CREATE TABLE `food` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) NOT NULL,
   `name` varchar(100) NOT NULL,
   `description` varchar(255) NOT NULL,
   `price` int(11) NOT NULL,
@@ -98,6 +130,13 @@ CREATE TABLE `food` (
   `show_on_home` varchar(10) NOT NULL,
   `active` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `food`
+--
+
+INSERT INTO `food` (`id`, `name`, `description`, `price`, `image`, `category_id`, `show_on_home`, `active`) VALUES
+(1, '   burger 2', '   abc', 20000, 'Food-Name7882.jpg', 2, 'Yes', 'Yes');
 
 -- --------------------------------------------------------
 
@@ -128,6 +167,14 @@ CREATE TABLE `order_food` (
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `food_id_fk` (`Food_ID`),
+  ADD KEY `customer_id_fk` (`User_ID`);
 
 --
 -- Chỉ mục cho bảng `category`
@@ -164,28 +211,45 @@ ALTER TABLE `admin`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT cho bảng `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `food`
 --
 ALTER TABLE `food`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `order_food`
 --
 ALTER TABLE `order_food`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Các ràng buộc cho các bảng đã đổ
+--
+
+--
+-- Các ràng buộc cho bảng `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `customer_id_fk` FOREIGN KEY (`User_ID`) REFERENCES `customer` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `food_id_fk` FOREIGN KEY (`Food_ID`) REFERENCES `food` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
