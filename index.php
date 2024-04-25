@@ -112,7 +112,7 @@
                                     </p>
                                     <br>
 
-                                <a href="order.html" class="btn btn-primary">Đặt món</a>
+                                <a href="<?php echo SITEURL; ?>customer/login.php" class="btn btn-primary">Đặt món</a>
                                 </div>
                             </div>
 

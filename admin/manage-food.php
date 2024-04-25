@@ -144,18 +144,7 @@
                         }
                     ?>
 
-                    <tr>
-                        <td>1. </td>
-                        <td>Burger King</td>
-                        <td>150.000vnd</td>
-                        <td>Image</td>
-                        <td>Yes</td>
-                        <td>Yes</td>
-                        <td>
-                            <a href="<?php echo SITEURL; ?>admin/update-food.php?id=<?php echo $id; ?>" class="btn-update">Update Food</a>
-                            <a href="<?php echo SITEURL; ?>admin/delete-food.php?id=<?php echo $id; ?>&image_name=<?php echo $image_name; ?>" class="btn-delete">Delete Food</a>
-                        </td>
-                    </tr>
+                
 
                 </table>
             </div>

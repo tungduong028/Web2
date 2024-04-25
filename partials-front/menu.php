@@ -34,7 +34,7 @@
                         <a href="<?php echo SITEURL; ?>foods.php">Món ăn</a>
                     </li>
                     <li>
-                        <a href="#">Liên hệ</a>
+                        <a href="<?php echo SITEURL; ?>customer/login.php">Đăng nhập</a>
                     </li>
                 </ul>
             </div>

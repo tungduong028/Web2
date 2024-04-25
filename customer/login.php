@@ -63,27 +63,36 @@
         $res = mysqli_query($conn, $sql);
 
         $count = mysqli_num_rows($res);
-
-        if($count == 1)
-        {
-            $row = mysqli_fetch_assoc($res);
-            $status = $row['status'];
-            if($status == 1)
-            {
-                $_SESSION['login'] = "<div class='success'>Login Successful.</div>";
-                $_SESSION['user'] = $username;
-                header('location:'.SITEURL.'customer/');
-            }
-            else
-            {
-                $_SESSION['login'] = "<div class='error text-center'>Account has been locked.</div>";
+        if(isset($_POST['submit'])) {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+    
+            $sql = "SELECT * FROM customer WHERE username = '$username' AND password = '$password'";
+            $res = mysqli_query($conn, $sql);
+    
+            if(mysqli_num_rows($res) == 1) {
+                $row = mysqli_fetch_assoc($res);
+                $status = $row['status'];
+                if($status == 1) {
+                    $_SESSION['login'] = "<div class='success'>Login Successful.</div>";
+                    $_SESSION['user'] = $username;
+    
+                    // Get user ID
+                    $user_id = $row['ID'];
+                    
+                    // Redirect with user ID
+                    header('location:'.SITEURL.'customer/index.php?id='.$user_id);
+                    exit();
+                } else {
+                    $_SESSION['login'] = "<div class='error text-center'>Account has been locked.</div>";
+                    header('location:'.SITEURL.'customer/login.php');
+                    exit();
+                }   
+            } else {
+                $_SESSION['login'] = "<div class='error text-center'>Username or Password did not match.</div>";
                 header('location:'.SITEURL.'customer/login.php');
-            }   
-        }
-        else
-        {
-            $_SESSION['login'] = "<div class='error text-center'>Username or Password did not match.</div>";
-            header('location:'.SITEURL.'customer/login.php');
+                exit();
+            }
         }
     }
 
