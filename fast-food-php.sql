@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 25, 2024 lúc 05:45 AM
+-- Thời gian đã tạo: Th4 25, 2024 lúc 05:58 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -75,7 +75,7 @@ INSERT INTO `cart` (`ID`, `Food_ID`, `User_ID`, `Quantity`, `Total`, `Status`) V
 --
 
 CREATE TABLE `category` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(10) NOT NULL,
   `title` varchar(100) NOT NULL,
   `image` varchar(255) NOT NULL,
   `show_on_home` varchar(10) NOT NULL,
@@ -138,7 +138,7 @@ CREATE TABLE `food` (
   `description` varchar(255) NOT NULL,
   `price` int(11) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `category_id` int(10) UNSIGNED NOT NULL,
+  `category_id` int(10) NOT NULL,
   `show_on_home` varchar(10) NOT NULL,
   `active` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -211,7 +211,8 @@ ALTER TABLE `customer_address`
 -- Chỉ mục cho bảng `food`
 --
 ALTER TABLE `food`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `category_id_fk` (`category_id`);
 
 --
 -- Chỉ mục cho bảng `order_food`
@@ -239,7 +240,7 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `customer`
@@ -281,6 +282,12 @@ ALTER TABLE `cart`
 --
 ALTER TABLE `customer_address`
   ADD CONSTRAINT `user_id_fk` FOREIGN KEY (`User_ID`) REFERENCES `customer` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `food`
+--
+ALTER TABLE `food`
+  ADD CONSTRAINT `category_id_fk` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
