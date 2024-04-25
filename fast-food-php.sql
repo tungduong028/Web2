@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 25, 2024 lúc 05:29 AM
+-- Thời gian đã tạo: Th4 25, 2024 lúc 05:45 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -117,6 +117,18 @@ INSERT INTO `customer` (`ID`, `username`, `password`, `name`, `address`, `phone`
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `customer_address`
+--
+
+CREATE TABLE `customer_address` (
+  `ID` int(10) NOT NULL,
+  `User_ID` int(10) NOT NULL,
+  `address` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `food`
 --
 
@@ -189,6 +201,13 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Chỉ mục cho bảng `customer_address`
+--
+ALTER TABLE `customer_address`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `user_id_fk` (`User_ID`);
+
+--
 -- Chỉ mục cho bảng `food`
 --
 ALTER TABLE `food`
@@ -229,6 +248,12 @@ ALTER TABLE `customer`
   MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT cho bảng `customer_address`
+--
+ALTER TABLE `customer_address`
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT cho bảng `food`
 --
 ALTER TABLE `food`
@@ -250,6 +275,12 @@ ALTER TABLE `order_food`
 ALTER TABLE `cart`
   ADD CONSTRAINT `customer_id_fk` FOREIGN KEY (`User_ID`) REFERENCES `customer` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `food_id_fk` FOREIGN KEY (`Food_ID`) REFERENCES `food` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `customer_address`
+--
+ALTER TABLE `customer_address`
+  ADD CONSTRAINT `user_id_fk` FOREIGN KEY (`User_ID`) REFERENCES `customer` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
