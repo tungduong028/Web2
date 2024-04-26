@@ -140,7 +140,7 @@
                     // echo $current_image;
                     // die();
 
-                    if ($current_image != "") {
+                    if ($current_image != "" ) {
                         $remove_path = "../images/category/".$current_image;
                         $remove = unlink($remove_path);
                         //check whether remove img
@@ -149,10 +149,13 @@
                         $_SESSION['update_remove_img'] = "<div class='error'> Faile to remove current img </div>";
                         //header('location:'.SITEURL.'admin/manage-category.php');
                         die();
-                    }
+                        }
                     }
                     
 
+                }
+                else{
+                    $image = $current_image;
                 }
                 
             }
