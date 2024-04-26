@@ -38,7 +38,7 @@ include('patials/menu.php');
                     <div class="address-item">
                         <label>
                             <input type="radio" name="delivery_address" value="<?php echo $row['ID']; ?>" required>
-                            <?php echo $row['address']; ?>
+                            Địa chỉ: <?php echo $row['address']; ?>  -  Số điện thoại: <?php echo $row['phone']; ?>
                         </label>
                     </div>
                 <?php } ?>
