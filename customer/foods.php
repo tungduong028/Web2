@@ -56,6 +56,7 @@
                             <!-- Form thêm vào giỏ hàng -->
                             <form action="add-to-cart.php" method="POST">
                                 <input type="hidden" name="food_id" value="<?php echo $id; ?>">
+                                <input type="hidden" name="image" value="<?php echo $image; ?>">
                                 <input type="hidden" name="food_title" value="<?php echo $title; ?>">
                                 <input type="hidden" name="food_price" value="<?php echo $price; ?>">
                                 <input type="number" name="quantity" value="1" min="1">

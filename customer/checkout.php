@@ -10,7 +10,7 @@ if(!isset($_SESSION['user'])) {
     header('location: login.php');
     exit;
 }
-
+$delivery_address = $_POST['delivery_address'];
 // Kiểm tra giỏ hàng có sản phẩm hay không
 if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     // Nhận thông tin người dùng từ session
@@ -33,7 +33,7 @@ if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         $total = $food_price * $quantity;
 
         // Thêm đơn hàng vào bảng cart
-        $sql = "INSERT INTO cart (Food_ID, User_ID, Quantity, Total) VALUES ('$food_id', '$user_id', '$quantity', '$total')";
+        $sql = "INSERT INTO cart (Food_ID, User_ID, Quantity, Total, delivery_address) VALUES ('$food_id', '$user_id', '$quantity', '$total', '$delivery_address')";
         $result = mysqli_query($conn, $sql);
 
         if(!$result) {

@@ -8,6 +8,7 @@ include('config/constants.php');
 if(isset($_POST['add_to_cart'])) {
     // Nhận thông tin sản phẩm từ form
     $food_id = isset($_POST['food_id']) ? $_POST['food_id'] : null;
+    $image = isset($_POST['image']) ? $_POST['image'] : null;
     $food_title = isset($_POST['food_title']) ? $_POST['food_title'] : null;
     $food_price = isset($_POST['food_price']) ? $_POST['food_price'] : null;
     $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : 1;
@@ -27,6 +28,7 @@ if(isset($_POST['add_to_cart'])) {
             // Nếu chưa tồn tại, thêm sản phẩm mới vào giỏ hàng
             $_SESSION['cart'][$food_id] = array(
                 'title' => $food_title,
+                'image' => $image,
                 'price' => $food_price,
                 'quantity' => $quantity
             );

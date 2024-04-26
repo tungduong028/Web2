@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 25, 2024 lúc 05:58 AM
+-- Thời gian đã tạo: Th4 26, 2024 lúc 10:00 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -56,6 +56,7 @@ CREATE TABLE `cart` (
   `User_ID` int(10) NOT NULL,
   `Quantity` int(20) NOT NULL,
   `Total` int(20) NOT NULL,
+  `delivery_address` int(10) NOT NULL,
   `Status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -63,10 +64,12 @@ CREATE TABLE `cart` (
 -- Đang đổ dữ liệu cho bảng `cart`
 --
 
-INSERT INTO `cart` (`ID`, `Food_ID`, `User_ID`, `Quantity`, `Total`, `Status`) VALUES
-(3, 1, 1, 1, 20000, 1),
-(4, 1, 1, 4, 80000, 1),
-(5, 1, 1, 1, 20000, 1);
+INSERT INTO `cart` (`ID`, `Food_ID`, `User_ID`, `Quantity`, `Total`, `delivery_address`, `Status`) VALUES
+(8, 1, 3, 1, 20000, 1, 1),
+(9, 1, 3, 2, 40000, 1, 1),
+(10, 1, 3, 1, 20000, 3, 1),
+(11, 1, 3, 1, 20000, 3, 1),
+(12, 1, 3, 10, 200000, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -123,8 +126,18 @@ INSERT INTO `customer` (`ID`, `username`, `password`, `name`, `address`, `phone`
 CREATE TABLE `customer_address` (
   `ID` int(10) NOT NULL,
   `User_ID` int(10) NOT NULL,
-  `address` varchar(250) NOT NULL
+  `address` varchar(250) NOT NULL,
+  `phone` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `customer_address`
+--
+
+INSERT INTO `customer_address` (`ID`, `User_ID`, `address`, `phone`) VALUES
+(1, 3, '123, HCM', '0334567891'),
+(2, 1, '333 Binh Duong', '0334567891'),
+(3, 3, '123 , P.THP , Ca Mau', '0334567891');
 
 -- --------------------------------------------------------
 
@@ -186,7 +199,8 @@ ALTER TABLE `admin`
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `food_id_fk` (`Food_ID`),
-  ADD KEY `customer_id_fk` (`User_ID`);
+  ADD KEY `customer_id_fk` (`User_ID`),
+  ADD KEY `delivery_address_fk` (`delivery_address`);
 
 --
 -- Chỉ mục cho bảng `category`
@@ -234,7 +248,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -252,7 +266,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT cho bảng `customer_address`
 --
 ALTER TABLE `customer_address`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `food`
@@ -275,6 +289,7 @@ ALTER TABLE `order_food`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `customer_id_fk` FOREIGN KEY (`User_ID`) REFERENCES `customer` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `delivery_address_fk` FOREIGN KEY (`delivery_address`) REFERENCES `customer_address` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `food_id_fk` FOREIGN KEY (`Food_ID`) REFERENCES `food` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
