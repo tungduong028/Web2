@@ -1,4 +1,5 @@
 <!-- Footer -->
+<div class="bottom">
 <section class="social">
         <div class="container text-center">
             <ul>
@@ -20,6 +21,6 @@
             <p>2024 @<a href="#"> FastFood-PHP</a></p>
         </div>
     </section>
-
+</div>
 </body>
 </html>

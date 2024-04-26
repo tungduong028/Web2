@@ -2,7 +2,7 @@
 
 include('patials/menu.php');
 ?>
-<link rel="stylesheet" href="../css/admin.css">
+<link rel="stylesheet" href="../css/cart.css">
 <!-- Main content -->
 <div class="main-content">
     <div class="wrapper">

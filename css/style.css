@@ -217,7 +217,11 @@ fieldset{
     margin-bottom: 1%; 
     font-weight: bold;
 }
-
+.bottom{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
 
 
 /* Mobile Size or Smaller Screen */
