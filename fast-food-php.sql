@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 26, 2024 lúc 10:00 AM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.1.25
+-- Host: localhost:3306
+-- Generation Time: May 01, 2024 at 05:04 PM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,24 +18,24 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `fast-food-php`
+-- Database: `fast-food-php`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE `admin` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `full_name` varchar(100) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `id` int UNSIGNED NOT NULL,
+  `full_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`id`, `full_name`, `username`, `password`) VALUES
@@ -47,21 +47,21 @@ INSERT INTO `admin` (`id`, `full_name`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `cart`
+-- Table structure for table `cart`
 --
 
 CREATE TABLE `cart` (
-  `ID` int(20) NOT NULL,
-  `Food_ID` int(10) NOT NULL,
-  `User_ID` int(10) NOT NULL,
-  `Quantity` int(20) NOT NULL,
-  `Total` int(20) NOT NULL,
-  `delivery_address` int(10) NOT NULL,
-  `Status` tinyint(1) NOT NULL DEFAULT 1
+  `ID` int NOT NULL,
+  `Food_ID` int NOT NULL,
+  `User_ID` int NOT NULL,
+  `Quantity` int NOT NULL,
+  `Total` int NOT NULL,
+  `delivery_address` int NOT NULL,
+  `Status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `cart`
+-- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`ID`, `Food_ID`, `User_ID`, `Quantity`, `Total`, `delivery_address`, `Status`) VALUES
@@ -69,24 +69,26 @@ INSERT INTO `cart` (`ID`, `Food_ID`, `User_ID`, `Quantity`, `Total`, `delivery_a
 (9, 1, 3, 2, 40000, 1, 1),
 (10, 1, 3, 1, 20000, 3, 1),
 (11, 1, 3, 1, 20000, 3, 1),
-(12, 1, 3, 10, 200000, 1, 1);
+(12, 1, 3, 10, 200000, 1, 1),
+(13, 1, 1, 1, 20000, 2, 1),
+(14, 1, 1, 1, 20000, 2, 1);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `category`
+-- Table structure for table `category`
 --
 
 CREATE TABLE `category` (
-  `id` int(10) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `show_on_home` varchar(10) NOT NULL,
-  `active` varchar(10) NOT NULL
+  `id` int NOT NULL,
+  `title` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `show_on_home` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
+  `active` varchar(10) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `category`
+-- Dumping data for table `category`
 --
 
 INSERT INTO `category` (`id`, `title`, `image`, `show_on_home`, `active`) VALUES
@@ -95,21 +97,21 @@ INSERT INTO `category` (`id`, `title`, `image`, `show_on_home`, `active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `customer`
+-- Table structure for table `customer`
 --
 
 CREATE TABLE `customer` (
-  `ID` int(10) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `address` text NOT NULL,
-  `phone` char(12) NOT NULL,
+  `ID` int NOT NULL,
+  `username` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `address` text COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` char(12) COLLATE utf8mb4_general_ci NOT NULL,
   `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `customer`
+-- Dumping data for table `customer`
 --
 
 INSERT INTO `customer` (`ID`, `username`, `password`, `name`, `address`, `phone`, `status`) VALUES
@@ -120,18 +122,18 @@ INSERT INTO `customer` (`ID`, `username`, `password`, `name`, `address`, `phone`
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `customer_address`
+-- Table structure for table `customer_address`
 --
 
 CREATE TABLE `customer_address` (
-  `ID` int(10) NOT NULL,
-  `User_ID` int(10) NOT NULL,
-  `address` varchar(250) NOT NULL,
-  `phone` varchar(12) NOT NULL
+  `ID` int NOT NULL,
+  `User_ID` int NOT NULL,
+  `address` varchar(250) COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` varchar(12) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `customer_address`
+-- Dumping data for table `customer_address`
 --
 
 INSERT INTO `customer_address` (`ID`, `User_ID`, `address`, `phone`) VALUES
@@ -142,22 +144,22 @@ INSERT INTO `customer_address` (`ID`, `User_ID`, `address`, `phone`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `food`
+-- Table structure for table `food`
 --
 
 CREATE TABLE `food` (
-  `id` int(10) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `price` int(11) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `category_id` int(10) NOT NULL,
-  `show_on_home` varchar(10) NOT NULL,
-  `active` varchar(10) NOT NULL
+  `id` int NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `price` int NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `category_id` int NOT NULL,
+  `show_on_home` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
+  `active` varchar(10) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `food`
+-- Dumping data for table `food`
 --
 
 INSERT INTO `food` (`id`, `name`, `description`, `price`, `image`, `category_id`, `show_on_home`, `active`) VALUES
@@ -166,126 +168,131 @@ INSERT INTO `food` (`id`, `name`, `description`, `price`, `image`, `category_id`
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `order_food`
+-- Table structure for table `order_food`
 --
 
 CREATE TABLE `order_food` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `food` varchar(255) NOT NULL,
-  `price` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `total` int(11) NOT NULL,
+  `id` int UNSIGNED NOT NULL,
+  `id_cart` int NOT NULL,
   `order_date` datetime NOT NULL,
-  `status` varchar(50) NOT NULL,
-  `customer_name` varchar(255) NOT NULL,
-  `customer_phone` varchar(10) NOT NULL,
-  `customer_email` varchar(100) NOT NULL,
-  `customer_address` varchar(255) NOT NULL
+  `status` varchar(50) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Dumping data for table `order_food`
+--
+
+INSERT INTO `order_food` (`id`, `id_cart`, `order_date`, `status`) VALUES
+(1, 8, '2024-04-28 16:03:49', '0'),
+(2, 10, '2024-05-01 15:13:48', '1'),
+(3, 10, '2024-05-01 15:13:48', '1');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `admin`
+-- Indexes for table `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `cart`
+-- Indexes for table `cart`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `food_id_fk` (`Food_ID`),
   ADD KEY `customer_id_fk` (`User_ID`),
-  ADD KEY `delivery_address_fk` (`delivery_address`);
+  ADD KEY `delivery_address_fk` (`delivery_address`),
+  ADD KEY `ID` (`ID`),
+  ADD KEY `ID_2` (`ID`);
 
 --
--- Chỉ mục cho bảng `category`
+-- Indexes for table `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `customer`
+-- Indexes for table `customer`
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Chỉ mục cho bảng `customer_address`
+-- Indexes for table `customer_address`
 --
 ALTER TABLE `customer_address`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `user_id_fk` (`User_ID`);
 
 --
--- Chỉ mục cho bảng `food`
+-- Indexes for table `food`
 --
 ALTER TABLE `food`
   ADD PRIMARY KEY (`id`),
   ADD KEY `category_id_fk` (`category_id`);
 
 --
--- Chỉ mục cho bảng `order_food`
+-- Indexes for table `order_food`
 --
 ALTER TABLE `order_food`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_cart` (`id_cart`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `admin`
+-- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT cho bảng `cart`
+-- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT cho bảng `category`
+-- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT cho bảng `customer`
+-- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `customer_address`
+-- AUTO_INCREMENT for table `customer_address`
 --
 ALTER TABLE `customer_address`
-  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `food`
+-- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT cho bảng `order_food`
+-- AUTO_INCREMENT for table `order_food`
 --
 ALTER TABLE `order_food`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `cart`
+-- Constraints for table `cart`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `customer_id_fk` FOREIGN KEY (`User_ID`) REFERENCES `customer` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -293,16 +300,22 @@ ALTER TABLE `cart`
   ADD CONSTRAINT `food_id_fk` FOREIGN KEY (`Food_ID`) REFERENCES `food` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `customer_address`
+-- Constraints for table `customer_address`
 --
 ALTER TABLE `customer_address`
   ADD CONSTRAINT `user_id_fk` FOREIGN KEY (`User_ID`) REFERENCES `customer` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `food`
+-- Constraints for table `food`
 --
 ALTER TABLE `food`
   ADD CONSTRAINT `category_id_fk` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `order_food`
+--
+ALTER TABLE `order_food`
+  ADD CONSTRAINT `order_food_ibfk_1` FOREIGN KEY (`id_cart`) REFERENCES `cart` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
