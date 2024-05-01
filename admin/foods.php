@@ -1,6 +1,5 @@
 <?php include('partials-front/menu.php'); ?>
 
-    <!-- Search -->
     <section class="food-search text-center">
         <div class="container">
             
@@ -12,69 +11,13 @@
         </div>
     </section>
 
-
-
-    <!-- Category -->
-    <section class="categories">
-        <div class="container">
-            <h2 class="text-center">Khám phá</h2>
-
-            <?php 
-                //Hiển categories từ database
-                $sql = "SELECT * FROM category WHERE active='Yes' AND show_on_home='Yes' LIMIT 3";
-                $res = mysqli_query($conn, $sql);
-                $count = mysqli_num_rows($res);
-                if($count > 0){
-                    while($row=mysqli_fetch_assoc($res)){
-                        $id = $row['id'];
-                        $title = $row['title'];
-                        $image_name = $row['image'];
-                        ?>
-                        
-                        <a href="category-foods.php">
-                            <div class="box-3 float-container">
-                            <?php
-                            if($image_name==""){
-                                echo "div class='error'>Image not available</div>";
-                            }
-                            else{
-                                ?>
-                                <img src="<?php echo SITEURL; ?>images/category/<?php echo $image_name ?>" alt="Pizza" class="img-responsive img-curve">
-                                <?php
-                            }
-                            ?>
-                            
-
-                            <h3 class="float-text text-white"><?php echo $title; ?></h3>
-                            </div>
-                        </a>
-
-                        <?php
-                    }   
-                }
-                else{
-                    echo "<div class ='error'>Category not added.</div>";
-                }
-            
-            ?>
-
-            
-
-            <div class="clearfix"></div>
-        </div>
-    </section>
-
-
-
-
     <!-- Food -->
     <section class="food-menu">
         <div class="container">
             <h2 class="text-center">Menu món ăn</h2>
 
-
             <?php 
-                $sql2 = "SELECT * FROM food WHERE active='Yes' AND show_on_home='Yes' LIMIT 6";
+                $sql2 = "SELECT * FROM food WHERE active='Yes'";
 
                 $res2 = mysqli_query($conn, $sql2);
 
@@ -112,7 +55,7 @@
                                     </p>
                                     <br>
 
-                                <a href="<?php echo SITEURL; ?>customer/login.php" class="btn btn-primary">Đặt món</a>
+                                    <a href="<?php echo SITEURL; ?>customer/login.php" class="btn btn-primary">Đặt món</a>
                                 </div>
                             </div>
 
@@ -123,9 +66,6 @@
                     echo "<div class='error'>Food not available.</div>";
                 }
             ?>
-
-            
-
 
             <div class="clearfix"></div>
 
