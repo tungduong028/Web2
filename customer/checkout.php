@@ -1,5 +1,4 @@
 <?php
-
 // Kết nối CSDL
 include('../admin/config/constants.php');
 
@@ -10,21 +9,34 @@ if(!isset($_SESSION['user'])) {
     header('location: login.php');
     exit;
 }
+
 $delivery_address = $_POST['delivery_address'];
+
 // Kiểm tra giỏ hàng có sản phẩm hay không
 if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     // Nhận thông tin người dùng từ session
     $username = $_SESSION['user'];
 
-            $sql = "SELECT * FROM customer WHERE username = '$username'";
-
-            $res = mysqli_query($conn, $sql);
-            $row = mysqli_fetch_assoc($res);
-            $user_id = $row['ID'];
+    $sql = "SELECT * FROM customer WHERE username = '$username'";
+    $res = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($res);
+    $user_id = $row['ID'];
 
     // Bắt đầu một giao dịch
     mysqli_autocommit($conn, false);
     $flag = true;
+
+    // Thêm dữ liệu vào bảng "order"
+    $order_date = date('Y-m-d H:i:s');
+    $sql_order = "INSERT INTO `order_food` (order_date) VALUES ('$order_date')";
+    $result_order = mysqli_query($conn, $sql_order);
+
+    if(!$result_order) {
+        $flag = false;
+    } else {
+        // Lấy ID của đơn hàng vừa được thêm
+        $order_id = mysqli_insert_id($conn);
+    }
 
     // Lặp qua các mục trong giỏ hàng và thêm vào cơ sở dữ liệu
     foreach($_SESSION['cart'] as $food_id => $item) {
@@ -32,11 +44,12 @@ if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         $food_price = $item['price'];
         $total = $food_price * $quantity;
 
-        // Thêm đơn hàng vào bảng cart
-        $sql = "INSERT INTO cart (Food_ID, User_ID, Quantity, Total, delivery_address) VALUES ('$food_id', '$user_id', '$quantity', '$total', '$delivery_address')";
-        $result = mysqli_query($conn, $sql);
+        // Thêm đơn hàng vào bảng "cart"
+        $sql_cart = "INSERT INTO cart (id, food_id, user_id, quantity, total, delivery_address) 
+                     VALUES ('$order_id', '$food_id', '$user_id', '$quantity', '$total', '$delivery_address')";
+        $result_cart = mysqli_query($conn, $sql_cart);
 
-        if(!$result) {
+        if(!$result_cart) {
             $flag = false;
             break; // Thoát vòng lặp nếu có lỗi
         }
