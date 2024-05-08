@@ -2,11 +2,11 @@
 
 include('patials/menu.php');
 ?>
-<link rel="stylesheet" href="../css/cart.css">
+
 <!-- Main content -->
 <div class="main-content">
     <div class="wrapper">
-        <h1>Giỏ hàng</h1>
+        <h1 style="margin: 10px;">Giỏ hàng</h1>
 
         <?php
         // Kiểm tra xem giỏ hàng có sản phẩm hay không
@@ -59,7 +59,7 @@ include('patials/menu.php');
                 <td colspan="2"><strong><?php echo number_format($total_price, 0, ",", "."); ?> VNĐ</strong></td>
             </tr>
         </table>
-        <a href="select-address.php" class="btn btn-primary">Thanh toán</a>
+        <a style="margin-left: 80px;" href="select-address.php" class="btn btn-primary">Thanh toán</a>
         <?php
         } else {
             // Nếu giỏ hàng trống, hiển thị thông báo
@@ -68,5 +68,7 @@ include('patials/menu.php');
         ?>
     </div>
 </div>
+<br>
+<br>
 
 <?php include('patials/footer.php'); ?>
