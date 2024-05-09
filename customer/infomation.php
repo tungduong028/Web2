@@ -1,8 +1,8 @@
 <?php include('patials/menu.php'); ?>
 
 <div class="main-content">
-    <div class="wrapper">
-        <h1>Infomation</h1>
+    <div class="container">
+        <h1>Thông tin khách hàng</h1>
         <br><br>
 
         <?php
@@ -56,21 +56,21 @@
                 </tr>
 
                 <tr>
-                    <td>Name: </td>
+                    <td>Tên khách hàng: </td>
                     <td>
                         <?php echo $name; ?>
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Address: </td>
+                    <td>Địa chỉ: </td>
                     <td>
                         <?php echo $address; ?>
                     </td>
                 </tr>
 
                 <tr>
-                    <td>Phone number: </td>
+                    <td>Số điện thoại: </td>
                     <td>
                         <?php echo $phone; ?>
                     </td>
@@ -78,8 +78,8 @@
 
                 <tr>
                     <td colspan="2">
-                        <input type="submit" name="change-info" value="Change Infomation" class="btn-confirm">
-                        <input type="submit" name="change-pass" value="Change Password" class="btn-confirm">
+                        <input style="margin-right: 10px;" type="submit" name="change-info" value="Đổi thông tin" class="btn btn-primary">
+                        <input type="submit" name="change-pass" value="Đổi mật khẩu" class="btn btn-primary">
                     </td>
                 </tr>
 

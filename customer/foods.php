@@ -3,7 +3,7 @@
 <section class="food-search text-center">
     <div class="container">
         
-        <form action="" method="POST">
+        <form action="food-search.php" method="POST">
             <input type="search" name="search" placeholder="Món ăn cần tìm..." required>
             <input type="submit" name="submit" value="Tìm kiếm" class="btn btn-primary">
         </form>
