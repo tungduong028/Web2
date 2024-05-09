@@ -6,7 +6,8 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 .main-content{
-    height: 800px;
+    
+    height: 600px;
 }
 .container{
     width: 80%;
@@ -195,6 +196,11 @@ table tr th{
 
 table tr td{
     padding: 1%;
+}
+
+.col-md-4{
+    margin: 20px;
+    font-size: 20px;
 }
 
 /* CSS cho phân trang */

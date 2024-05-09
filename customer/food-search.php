@@ -12,7 +12,7 @@
 </section>
 
 <!-- Food -->
-<section class="food-menu">
+<section class="food-menu main-content">
     <div class="container">
         <h2 class="text-center">Kết quả tìm kiếm</h2>
 

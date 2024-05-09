@@ -38,6 +38,9 @@
                         <a href="foods.php">Món ăn</a>
                     </li>
                     <li>
+                        <a href="advanced-search.php">Tìm nâng cao</a>
+                    </li>
+                    <li>
                         <a href="infomation.php"><?php echo $_SESSION['user']; ?></a>
                     </li>
                     <li>
