@@ -19,20 +19,20 @@
             ?>        
             <!-- filter screent of order -->
             <form action="" method="POST">
-                <select name="status">
+                <!-- <select name="status">
                     
                     <option value="Ordered">Ordered</option>
                     <option value="On Delivery">On Delivery</option>
                     <option value="Delivered">Delivered</option>
                     <option value="Cancelled">Cancelled</option>
-                </select>
+                </select> -->
                 <label for="from_date">Status: </label>
                 <select name="status">
                     <option value="all">Tất cả</option>
                     <option value="sucess">Thành công</option>
                     <option value="fail">Hủy đơn</option>
                 </select>
-                <br/><br/>
+                
                 <label for="from_date">From: </label>
                 <input type="date" name="from_date">
                 <label for="to_date">To: </label>
@@ -52,6 +52,7 @@
                     <th>STT</th>
                     <th>ID_Order</th>
                     <th>Date </th>
+                    <th>Total</th>
                     <th>Actions</th>
                     <th>Status </th>
                     <th>Details </th>
@@ -84,7 +85,8 @@
                   }
                   if($_POST['delivery_location'] != '') {
                       $delivery_location = $conn->real_escape_string($_POST['delivery_location']);
-                      $whereConditions[] = "customer_address.address LIKE '%$delivery_location%'";
+                      $delivery_location = strtolower($delivery_location);  // Chuyển đầu vào thành chữ thường
+                      $whereConditions[] = "LOWER(customer_address.address) LIKE '%$delivery_location%'";  // Sử dụng LOWER để so sánh không phân biệt chữ hoa chữ thường
                   }
 
                   // Tạo câu truy vấn với các điều kiện WHERE
@@ -96,21 +98,27 @@
                   // $sql = "SELECT cart.ID as cartid, cart.Status as CartStatus, order_food.id as orderid, order_food.order_date, order_food.status as OrderStatus FROM cart INNER JOIN order_food ON cart.ID = order_food.id_cart $whereClause";
                   $sql = "SELECT cart.ID as cartid, cart.Status as CartStatus, 
                   order_food.id as orderid, order_food.order_date, order_food.status as OrderStatus, 
-                  customer_address.address as DeliveryAddress 
+                  customer_address.address as DeliveryAddress, order_food.total_order
                   FROM cart 
-                  INNER JOIN order_food ON cart.ID = order_food.id_cart 
+                  INNER JOIN order_food ON cart.ID = order_food.id 
                   INNER JOIN customer_address ON cart.delivery_address = customer_address.ID 
                   $whereClause";
                   // Thực hiện truy vấn và hiển thị kết quả
                   //..............................................
                   $result = $conn->query($sql);
                 $count = 1;
+                
                 if ($result->num_rows > 0) {
+                  $id_sp = [];
                     while($row = $result->fetch_assoc()) {
+                      $id_current = $row['cartid'];
+                      if ($id_current != $id_sp) {
+
                         echo "<tr>";
                         echo "<td>".$count++."</td>";
                         echo "<td>".$row["cartid"]."</td>";
                         echo "<td>".$row["order_date"]."</td>";
+                        echo "<td>".$row["total_order"].".vnd"."</td>";
                       
                       //status cart
                         echo "<td>";
@@ -149,6 +157,9 @@
                         
 
                         echo "</tr>";
+                      }
+                      $id_sp = $id_current;
+                      
                     }
                 } else {
                     echo "<tr><td colspan='6'><div class='error'>No Orders Available</div></td></tr>";
@@ -157,16 +168,21 @@
                 // ......................................................................
                 }
                 else {
-                $sql = "SELECT cart.ID as cartid, cart.Status as CartStatus, order_food.id as orderid, order_food.order_date, order_food.status as OrderStatus FROM cart INNER JOIN order_food ON cart.ID = order_food.id_cart";
+                $sql = "SELECT cart.ID as cartid, cart.Status as CartStatus, order_food.id as orderid, order_food.order_date, order_food.status as OrderStatus, order_food.total_order FROM cart INNER JOIN order_food ON cart.ID = order_food.id";
                 $result = $conn->query($sql);
                 $count = 1;
                 if ($result->num_rows > 0) {
+                  $id_sp = [];
                     while($row = $result->fetch_assoc()) {
+                      $id_current = $row['cartid'];
+                      if ($id_current != $id_sp) {
+
                         echo "<tr>";
                         echo "<td>".$count++."</td>";
                         echo "<td>".$row["cartid"]."</td>";
                         echo "<td>".$row["order_date"]."</td>";
-                      
+                        echo "<td>".$row["total_order"].".vnd"."</td>";
+
                       //status cart
                         echo "<td>";
                           if ( $row["CartStatus"] == 1) {
@@ -204,6 +220,8 @@
                         
 
                         echo "</tr>";
+                      }
+                      $id_sp = $id_current;
                     }
                 } else {
                     echo "<tr><td colspan='6'><div class='error'>No Orders Available</div></td></tr>";
