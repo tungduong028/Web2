@@ -54,6 +54,19 @@
     padding: 2%;
     float: left;
 }
+.col-8{
+    width: 50%;
+    margin: 1%;
+    padding: 2%;
+    float: center;
+}
+.col-dashboard{
+    width: 400px;
+    background-color: white;
+    margin: 1%;
+    padding: 2%;
+    float: left;
+}
 .clearfix{
     float: none;
     clear: both;
