@@ -16,17 +16,19 @@
                         echo $_SESSION['update_status_cart'];
                         unset($_SESSION['update_status_cart']);
                     }
+                $sql_customer = "SELECT * FROM customer ";
+                $res_customer = $conn->query($sql_customer);
             ?>        
             <!-- filter screent of order -->
             <form action="" method="POST">
-                <!-- <select name="status">
-                    
-                    <option value="Ordered">Ordered</option>
-                    <option value="On Delivery">On Delivery</option>
-                    <option value="Delivered">Delivered</option>
-                    <option value="Cancelled">Cancelled</option>
-                </select> -->
-                <label for="from_date">Status: </label>
+                <label for="customer">customer: </label>
+                <select name="customer">
+                    <option value="all">Tất cả</option>
+                    <?php while ($row = mysqli_fetch_assoc($res_customer)) { ?>
+                    <option value="<?php echo $row['name']; ?>"><?php echo $row['name']; ?></option>
+                    <?php } ?>
+                </select>
+                <label for="status">Status: </label>
                 <select name="status">
                     <option value="all">Tất cả</option>
                     <option value="sucess">Thành công</option>
@@ -63,6 +65,10 @@
                 if(isset($_POST['filter'])) {
                   // Xây dựng điều kiện WHERE dựa trên đầu vào của người dùng
                   $whereConditions = [];
+                  if ($_POST['customer'] !='' && $_POST['customer'] != 'all') {
+                    $customer = $conn->real_escape_string($_POST['customer']);
+                    $whereConditions[] = "LOWER(customer.name) REGEXP '$customer'";
+                  }
                   if($_POST['status'] != '' && $_POST['status'] != 'all') {
                       $status = $conn->real_escape_string($_POST['status']);
                       if ($status == 'sucess') {
@@ -86,7 +92,7 @@
                   if($_POST['delivery_location'] != '') {
                       $delivery_location = $conn->real_escape_string($_POST['delivery_location']);
                       $delivery_location = strtolower($delivery_location);  // Chuyển đầu vào thành chữ thường
-                      $whereConditions[] = "LOWER(customer_address.address) LIKE '%$delivery_location%'";  // Sử dụng LOWER để so sánh không phân biệt chữ hoa chữ thường
+                      $whereConditions[] = "LOWER(customer_address.address) REGEXP '$delivery_location'";  // Sử dụng LOWER để so sánh không phân biệt chữ hoa chữ thường
                   }
 
                   // Tạo câu truy vấn với các điều kiện WHERE
@@ -97,11 +103,13 @@
 
                   // $sql = "SELECT cart.ID as cartid, cart.Status as CartStatus, order_food.id as orderid, order_food.order_date, order_food.status as OrderStatus FROM cart INNER JOIN order_food ON cart.ID = order_food.id_cart $whereClause";
                   $sql = "SELECT cart.ID as cartid, cart.Status as CartStatus, 
-                  order_food.id as orderid, order_food.order_date, order_food.status as OrderStatus, 
-                  customer_address.address as DeliveryAddress, order_food.total_order
+                  order_food.id as orderid, order_food.order_date, order_food.status as OrderStatus, order_food.total_order,
+                  customer_address.address as DeliveryAddress, 
+                  customer.name
                   FROM cart 
                   INNER JOIN order_food ON cart.ID = order_food.id 
                   INNER JOIN customer_address ON cart.delivery_address = customer_address.ID 
+                  INNER JOIN customer ON cart.User_id = customer.ID
                   $whereClause";
                   // Thực hiện truy vấn và hiển thị kết quả
                   //..............................................
@@ -168,7 +176,10 @@
                 // ......................................................................
                 }
                 else {
-                $sql = "SELECT cart.ID as cartid, cart.Status as CartStatus, order_food.id as orderid, order_food.order_date, order_food.status as OrderStatus, order_food.total_order FROM cart INNER JOIN order_food ON cart.ID = order_food.id";
+                $sql = "SELECT 
+                cart.ID as cartid, cart.Status as CartStatus, 
+                order_food.id as orderid, order_food.order_date, order_food.status as OrderStatus, order_food.total_order 
+                FROM cart INNER JOIN order_food ON cart.ID = order_food.id";
                 $result = $conn->query($sql);
                 $count = 1;
                 if ($result->num_rows > 0) {

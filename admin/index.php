@@ -1,4 +1,39 @@
-<?php include('patials/menu.php'); ?>
+<?php
+include('patials/menu.php');
+
+$customerCount = 0;
+$totalRevenue = 0;
+$topCustomers = [];
+$chartData = [];
+$time_period = isset($_POST['time_period']) ? $_POST['time_period'] : 7; // Mặc định là 7 ngày
+$endDate = date('Y-m-d'); // Ngày hiện tại
+$startDate = date('Y-m-d', strtotime("-$time_period days"));
+
+// Truy vấn để lấy top 5 khách hàng
+$sql = "SELECT 
+            customer.name, SUM(order_food.total_order) AS total_spent
+        FROM customer
+        JOIN cart ON customer.ID = cart.User_ID
+        JOIN order_food ON cart.ID = order_food.ID
+        WHERE order_food.order_date BETWEEN '$startDate' AND '$endDate'
+        GROUP BY customer.ID
+        ORDER BY total_spent DESC
+        LIMIT 5;";
+$result = $conn->query($sql);
+
+// Truy vấn để lấy dữ liệu biểu đồ
+$chartSql = "SELECT DATE_FORMAT(order_date, '%U') AS week_number, SUM(total_order) AS weekly_total 
+             FROM order_food 
+             WHERE order_date BETWEEN '$startDate' AND '$endDate' 
+             GROUP BY week_number 
+             ORDER BY week_number";
+$chartResult = $conn->query($chartSql);
+while ($row = $chartResult->fetch_assoc()) {
+    $chartData[] = $row['weekly_total'];
+}
+
+$conn->close();
+?>
 
 <div class="main-content">
     <div class="wrapper">
@@ -9,39 +44,30 @@
                 echo $_SESSION['login'];
                 unset($_SESSION['login']);
             }
-
-            // Truy vấn để lấy top 5 khách hàng
-            $sql = "SELECT customer.name, SUM(order_food.total_order) AS total_spent
-                    FROM customer
-                    JOIN order_food ON customer.ID = cart.User_ID
-                    WHERE order_food.order_date BETWEEN '2022-01-01' AND '2022-12-31'
-                    GROUP BY customer.ID
-                    ORDER BY total_spent DESC
-                    LIMIT 5";
-
-            $result = $conn->query($sql);
-
-            // Truy vấn để lấy dữ liệu biểu đồ
-            $chartData = [];
-            $weeks = ["Week 1", "Week 2", "Week 3", "Week 4"];
-            foreach ($weeks as $week) {
-                $weekNum = explode(' ', $week)[1];
-                $chartSql = "SELECT SUM(total_order) AS weekly_total FROM order_food WHERE WEEK(order_date) = $weekNum";
-                $chartResult = $conn->query($chartSql);
-                $row = $chartResult->fetch_assoc();
-                $chartData[] = $row['weekly_total'] ?: 0;
-            }
         ?>
-        
-        <!-- Displaying the top 5 customers -->
+
+        <!-- Form lựa chọn khoảng thời gian -->
+        <form action="" method="post">
+            <select name="time_period">
+                <option value="1" <?php if ($time_period == 1) echo 'selected'; ?>>Hôm nay</option>
+                <option value="7" <?php if ($time_period == 7) echo 'selected'; ?>>7 ngày gần nhất</option>
+                <option value="30" <?php if ($time_period == 30) echo 'selected'; ?>>30 ngày gần nhất</option>
+                <option value="90" <?php if ($time_period == 90) echo 'selected'; ?>>90 ngày gần nhất</option>
+                <option value="180" <?php if ($time_period == 180) echo 'selected'; ?>>180 ngày gần nhất</option>
+
+            </select>
+            <input type="submit" value="Thống kê">
+        </form>
+
+        <!-- Hiển thị top 5 khách hàng -->
         <div class="col-4 text-center">
             <h1>Top 5 Customers</h1>
             <br />
             <?php
                 if ($result->num_rows > 0) {
-                    echo "<table><tr><th>Customer Name</th><th>Total Spent</th></tr>";
+                    echo "<table border='1'><tr><th>Customer Name</th><th>Total Spent</th></tr>";
                     while($row = $result->fetch_assoc()) {
-                        echo "<tr><td>" . $row["name"] . "</td><td>" . $row["total_spent"] . "</td></tr>";
+                        echo "<tr><td>" . $row["name"] . "</td><td>" . number_format($row["total_spent"]) . "</td></tr>";
                     }
                     echo "</table>";
                 } else {
@@ -50,7 +76,7 @@
             ?>
         </div>
 
-        <!-- Displaying the sales chart -->
+        <!-- Hiển thị biểu đồ bán hàng -->
         <div class="col-8 text-center">
             <canvas id="salesChart" width="400" height="400"></canvas>
         </div>
@@ -65,10 +91,10 @@
     var salesChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: <?php echo json_encode($weeks); ?>,
+            labels: <?php echo json_encode(array_keys($chartData)); ?>,
             datasets: [{
                 label: 'Weekly Sales',
-                data: <?php echo json_encode($chartData); ?>,
+                data: <?php echo json_encode(array_values($chartData)); ?>,
                 backgroundColor: 'rgba(54, 162, 235, 0.6)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
@@ -85,3 +111,4 @@
 </script>
 
 <?php include('patials/footer.php'); ?>
+
