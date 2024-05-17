@@ -58,7 +58,7 @@
                                 echo "<div class='error'>Image not avilable.</div>";
                             }else{
                                 ?>
-                                    <img src="<?php echo SITEURL; ?>images/food/<?php echo $current_image; ?>" width="150px">
+                                    <img src="<?php echo SITEURL;?>images/food/<?php echo $current_image; ?>" width="150px">
                                 <?php
                             }
                         ?>
@@ -163,7 +163,7 @@
 
                         if ($upload== false){
                             //failed to upload
-                            $_SESSION['upload'] = "<div class'error'>failed to upload new image</div>";
+                            $_SESSION['upload'] = "<div class='error'>failed to upload new image</div>";
                             header('location:'.SITEURL.'admin/manage-food.php');
                             die();
                         }
@@ -198,14 +198,14 @@
                     category_id = '$category', 
                     show_on_home = '$show_on_home', 
                     active = '$active'
-                    WHERE id=$id";
+                    WHERE id= $id";
                 //execute the SQL query
                 $res3 = mysqli_query($conn, $sql3);
 
-                if($res3==true){
+                if($res3 == true){
                     $_SESSION['update'] = "<div class='success'>Food updated successfully.</div>";
                     header('location:'.SITEURL.'admin/manage-food.php');
-                }else{
+                }else {
                     $_SESSION['update'] = "<div class='error'>Failed to updated food.</div>";
                     header('location:'.SITEURL.'admin/manage-food.php');
                 }

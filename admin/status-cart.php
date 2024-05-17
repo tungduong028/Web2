@@ -2,19 +2,19 @@
 include('../admin/config/constants.php');
 
 // Kiểm tra xem ID và status được truyền qua URL hay không
-if(isset($_GET['ID']) && isset($_GET['Status'])) {
+if(isset($_GET['ID']) && isset($_GET['status'])) {
     // Lấy giá trị của ID và status từ URL
     $ID = $_GET['ID'];
     //$status = ($_GET['status'] == 0) ? 1 : 0;;
-    if ($_GET['Status'] == 0) {
-        $Status = 1;
+    if ($_GET['status'] == 0) {
+        $status = 1;
     }
     else {
-        $Status = 0;
+        $status = 0;
     }
 
     // Update trạng thái của khách hàng trong cơ sở dữ liệu
-    $sql = "UPDATE cart SET Status = '$Status' WHERE ID = '$ID'"; 
+    $sql = "UPDATE order_food SET status2 = '$status' WHERE id = '$ID'"; 
     $res = mysqli_query($conn, $sql);
     if (!$res) {
         echo "Error: ".mysqli_error($conn);
