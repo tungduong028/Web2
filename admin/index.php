@@ -18,14 +18,13 @@ $startDate_food = date('Y-m-d', strtotime("-$time_period_food days"));
 $sql = "SELECT 
             customer.name, customer.username,
             SUM(order_food.total_order) AS total_spent
-        FROM customer
-        JOIN cart ON customer.ID = cart.User_ID
-        JOIN order_food ON cart.ID = order_food.ID
-        WHERE order_food.order_date BETWEEN '$startDate' AND '$endDate'
-        AND order_food.status = 1
-        GROUP BY customer.ID
-        ORDER BY total_spent DESC
-        LIMIT 5;";
+            FROM customer
+            JOIN order_food ON customer.ID = order_food.customer_id
+            WHERE order_food.order_date BETWEEN '$startDate' AND '$endDate'
+            AND order_food.status = 1
+            GROUP BY customer.ID
+            ORDER BY total_spent DESC
+            LIMIT 5;";
 $result = $conn->query($sql);
 //truy vấn sản phẩm bán chạy nhất
 // $sql_food = "SELECT 
@@ -200,6 +199,7 @@ $conn->close();
                 }
             ?>
         </div>
+        <div class="clearfix"></div>
     </div>
 </div>
 

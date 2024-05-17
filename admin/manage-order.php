@@ -102,7 +102,7 @@
                   }
 
                   // $sql = "SELECT cart.ID as cartid, cart.Status as CartStatus, order_food.id as orderid, order_food.order_date, order_food.status as OrderStatus FROM cart INNER JOIN order_food ON cart.ID = order_food.id_cart $whereClause";
-                  $sql = "SELECT cart.ID as cartid, cart.Status as CartStatus, 
+                  $sql = "SELECT cart.ID as cartid, order_food.Status as CartStatus, 
                   order_food.id as orderid, order_food.order_date, order_food.status as OrderStatus, order_food.total_order,
                   customer_address.address as DeliveryAddress, 
                   customer.name
@@ -177,7 +177,7 @@
                 }
                 else {
                 $sql = "SELECT 
-                cart.ID as cartid, cart.Status as CartStatus, 
+                cart.ID as cartid, order_food.Status as CartStatus, 
                 order_food.id as orderid, order_food.order_date, order_food.status as OrderStatus, order_food.total_order 
                 FROM cart INNER JOIN order_food ON cart.ID = order_food.id";
                 $result = $conn->query($sql);

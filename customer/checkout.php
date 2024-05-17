@@ -22,13 +22,16 @@ if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     $row = mysqli_fetch_assoc($res);
     $user_id = $row['ID'];
 
+    // Lấy tổng giá trị đơn hàng từ session
+    $total_order = $_SESSION['total_order'];
+
     // Bắt đầu một giao dịch
     mysqli_autocommit($conn, false);
     $flag = true;
 
-    // Thêm dữ liệu vào bảng "order"
+    // Thêm dữ liệu vào bảng "order_food"
     $order_date = date('Y-m-d H:i:s');
-    $sql_order = "INSERT INTO `order_food` (order_date) VALUES ('$order_date')";
+    $sql_order = "INSERT INTO `order_food` (order_date, customer_id, total_order, delivery_address) VALUES ('$order_date', '$user_id', '$total_order', '$delivery_address')";
     $result_order = mysqli_query($conn, $sql_order);
 
     if(!$result_order) {
@@ -45,8 +48,8 @@ if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         $total = $food_price * $quantity;
 
         // Thêm đơn hàng vào bảng "cart"
-        $sql_cart = "INSERT INTO cart (id, food_id, user_id, quantity, total, delivery_address) 
-                     VALUES ('$order_id', '$food_id', '$user_id', '$quantity', '$total', '$delivery_address')";
+        $sql_cart = "INSERT INTO cart (id, food_id, quantity, total) 
+                     VALUES ('$order_id', '$food_id', '$quantity', '$total')";
         $result_cart = mysqli_query($conn, $sql_cart);
 
         if(!$result_cart) {
@@ -59,6 +62,7 @@ if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     if($flag) {
         mysqli_commit($conn);
         unset($_SESSION['cart']); // Xóa giỏ hàng sau khi thanh toán thành công
+        unset($_SESSION['total_order']); // Xóa tổng giá trị đơn hàng sau khi thanh toán thành công
         $_SESSION['success'] = "Đơn hàng của bạn đã được đặt thành công.";
         header('location: index.php'); // Chuyển hướng người dùng đến trang chính
     } else {

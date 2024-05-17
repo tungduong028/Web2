@@ -61,6 +61,8 @@ include('patials/menu.php');
         </table>
         <a style="margin-left: 80px;" href="select-address.php" class="btn btn-primary">Thanh toán</a>
         <?php
+        // Lưu tổng giá trị đơn hàng vào session
+        $_SESSION['total_order'] = $total_price;
         } else {
             // Nếu giỏ hàng trống, hiển thị thông báo
             echo "<p>Giỏ hàng của bạn đang trống.</p>";
