@@ -188,7 +188,7 @@ $conn->close();
                         echo "<tr>
                                <td>" .$row_food["fname"]. "</td>
                                <td>
-                               <img src='".SITEURL."/images/category/" . $row_food["fimg"] . "' width='100px'>
+                               <img src='".SITEURL."/images/food/" . $row_food["fimg"] . "' width='100px'>
                                </td>
                                <td>" .($row_food["qua_food"]). "</td>
                               </tr>";

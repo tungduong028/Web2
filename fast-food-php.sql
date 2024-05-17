@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 17, 2024 lúc 05:53 AM
+-- Thời gian đã tạo: Th5 17, 2024 lúc 08:34 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -63,7 +63,10 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`ID`, `Food_ID`, `Quantity`, `Total`) VALUES
 (2, 2, 1, 10000),
-(2, 4, 1, 20000);
+(2, 4, 1, 20000),
+(3, 2, 1, 10000),
+(3, 4, 1, 20000),
+(3, 5, 1, 20000);
 
 -- --------------------------------------------------------
 
@@ -157,7 +160,7 @@ CREATE TABLE `food` (
 --
 
 INSERT INTO `food` (`id`, `name`, `description`, `price`, `image`, `category_id`, `show_on_home`, `active`) VALUES
-(2, '   pizza', '   aaa', 10000, 'Food-Name9248.jpg', 3, 'Yes', 'Yes'),
+(2, '     pizza', '     aaa', 10000, 'Food-Name9248.jpg', 3, 'Yes', 'Yes'),
 (4, '    chicken', '    aaa', 20000, 'Food-Name427.jpg', 2, 'Yes', 'Yes'),
 (5, 'burger', 'aaa', 20000, 'Food-Name7679.jpg', 2, 'Yes', 'Yes');
 
@@ -173,15 +176,17 @@ CREATE TABLE `order_food` (
   `order_date` date NOT NULL,
   `total_order` int(11) NOT NULL,
   `delivery_address` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `status2` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `order_food`
 --
 
-INSERT INTO `order_food` (`id`, `Customer_ID`, `order_date`, `total_order`, `delivery_address`, `status`) VALUES
-(2, 3, '2024-05-17', 30000, 1, 1);
+INSERT INTO `order_food` (`id`, `Customer_ID`, `order_date`, `total_order`, `delivery_address`, `status`, `status2`) VALUES
+(2, 3, '2024-05-17', 30000, 1, 1, 0),
+(3, 3, '2024-05-17', 50000, 3, 1, 0);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -272,7 +277,7 @@ ALTER TABLE `food`
 -- AUTO_INCREMENT cho bảng `order_food`
 --
 ALTER TABLE `order_food`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
