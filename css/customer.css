@@ -44,6 +44,29 @@
     background-color: #3743fa;
 }
 
+.btn-update{
+    padding: 1%;
+    background-color: #0be881;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+.btn-update:hover{
+    background-color: #05c46b;
+    cursor: pointer;
+}
+
+.btn-delete{
+    padding: 1%;
+    background-color: #ef5777;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+.btn-delete:hover{
+    background-color: #f53b57;
+}
+
 /* Index */
 .main-content {
     background-color: #f1f2f6;
@@ -133,6 +156,10 @@
 
 .table-30 {
     width: 30%;
+}
+
+.table-55 {
+    width: 55%;
 }
 
 .table-full {

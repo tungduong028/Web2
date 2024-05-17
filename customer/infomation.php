@@ -47,7 +47,7 @@
 
         <form action="" method="POST">
 
-            <table class="table-30">
+            <table class="table-55">
                 <tr>
                     <td>Username: </td>
                     <td>
@@ -77,9 +77,10 @@
                 </tr>
 
                 <tr>
-                    <td colspan="2">
+                    <td colspan="3">
                         <input type="submit" name="change-info" value="Change Infomation" class="btn-confirm">
                         <input type="submit" name="change-pass" value="Change Password" class="btn-confirm">
+                        <input type="submit" name="change-address" value="Address List" class="btn-confirm">
                     </td>
                 </tr>
 
@@ -100,6 +101,11 @@
     if(isset($_POST['change-info']))
     {
         header('location:'.SITEURL.'customer/update-infomation.php');
+    }
+
+    if(isset($_POST['change-address']))
+    {
+        header('location:'.SITEURL.'customer/update-address.php');
     }
 
 ?>

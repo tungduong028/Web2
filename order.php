@@ -39,7 +39,40 @@
                     <input type="email" name="email" placeholder="email@gmail.com" class="input-responsive" required>
 
                     <div class="order-label">Địa chỉ</div>
-                    <textarea name="address" rows="10" placeholder="Địa chỉ khách hàng" class="input-responsive" required></textarea>
+                    <form>
+                        <select class="select-address">
+                            <?php
+                                $username = $_SESSION['user'];
+
+                                $sql = "SELECT a.ID AS address_ID, c.ID AS customer_ID, a.address AS find_address, a.phone AS address_phone FROM customer_address AS a JOIN customer AS c ON a.User_ID = c.ID WHERE c.username = '$username'";
+                                $res = mysqli_query($conn, $sql);
+        
+                                if($res==TRUE){
+                                    $i = 1;
+                                    $count = mysqli_num_rows($res);
+                                    if($count > 0){
+                                        while($rows = mysqli_fetch_assoc($res)){
+                                            $customerID = $rows['customer_ID'];
+                                            $id = $rows['address_ID'];
+                                            $address = $rows['find_address'];
+                                            $phone = $rows['address_phone'];
+                            ?>
+                                            <option value=""><?php echo $address?></option>
+                            <?php
+                                        }
+                                    }
+                                }
+                            ?>
+                        </select>
+                    </form>
+
+                    <div class="order-label">Phương thức thanh toán</div>
+                    <form action="">
+                        <select class="select-address">
+                            <option value="">Thanh toán khi nhận hàng</option>
+                            <option value="">Thanh toán trực tuyến</option>
+                        </select>
+                    </form>
 
                     <input type="submit" name="submit" value="Đặt món" class="btn btn-primary">
                 </fieldset>
