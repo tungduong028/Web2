@@ -60,6 +60,7 @@
                         <th>Title</th>
                         <th>Image</th>
                         <th>Featured</th>
+                        <th>Active</th>
                         <th>Action</th>
                     </tr>
 
@@ -103,8 +104,8 @@
                                <td><?php echo $show_on_home; ?></td>
                                <td><?php echo $active; ?></td>
                                <td>
-                                  <a href="<?php echo SITEURL;?>admin/update-category.php?id=<?php echo $id; ?>&image=<?php echo $image;?>" class="btn-update">Update Category</a>
-                                  <a href="<?php echo SITEURL;?>admin/delete-category.php?id=<?php echo $id; ?>&image=<?php echo $image;?>" class="btn-delete">Delete Category</a>
+                                  <a href="<?php echo SITEURL;?>admin/update-category.php?id=<?php echo $id; ?>&image=<?php echo $image;?>" class="btn-update">Update </a>
+                                  <a href="<?php echo SITEURL;?>admin/delete-category.php?id=<?php echo $id; ?>&image=<?php echo $image;?>" class="btn-delete">Delete </a>
                                </td>
                               </tr>
                             <?php
