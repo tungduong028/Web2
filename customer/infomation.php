@@ -47,7 +47,7 @@
 
         <form action="" method="POST">
 
-            <table class="table-30">
+            <table class="table-55">
                 <tr>
                     <td>Username: </td>
                     <td>
@@ -78,8 +78,8 @@
 
                 <tr>
                     <td colspan="2">
-                        <input style="margin-right: 10px;" type="submit" name="change-info" value="Đổi thông tin" class="btn btn-primary">
-                        <input type="submit" name="change-pass" value="Đổi mật khẩu" class="btn btn-primary">
+                        <input type="submit" name="change-info" value="Change Infomation" class="btn-confirm">
+                        <input type="submit" name="change-pass" value="Change Password" class="btn-confirm">
                     </td>
                 </tr>
 
@@ -100,6 +100,11 @@
     if(isset($_POST['change-info']))
     {
         header('location:'.SITEURL.'customer/update-infomation.php');
+    }
+
+    if(isset($_POST['change-address']))
+    {
+        header('location:'.SITEURL.'customer/update-address.php');
     }
 
 ?>

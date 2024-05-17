@@ -292,11 +292,7 @@ table tr td{
     margin-bottom: 1%; 
     font-weight: bold;
 }
-.bottom{
-    position: relative;
-    width: 100%;
-    bottom: 0;
-}
+
 
 
 /* Mobile Size or Smaller Screen */
