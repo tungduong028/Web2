@@ -64,7 +64,7 @@ if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         unset($_SESSION['cart']); // Xóa giỏ hàng sau khi thanh toán thành công
         unset($_SESSION['total_order']); // Xóa tổng giá trị đơn hàng sau khi thanh toán thành công
         $_SESSION['success'] = "Đơn hàng của bạn đã được đặt thành công.";
-        header('location: index.php'); // Chuyển hướng người dùng đến trang chính
+        header('location: bill-info.php?order_id=' . $order_id);
     } else {
         mysqli_rollback($conn);
         $_SESSION['error'] = "Đã xảy ra lỗi trong quá trình đặt hàng.";
