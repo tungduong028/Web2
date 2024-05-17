@@ -11,7 +11,7 @@ if(!isset($_SESSION['user'])) {
 }
 
 $delivery_address = $_POST['delivery_address'];
-
+$payment_methods = $_POST['payment_method'];
 // Kiểm tra giỏ hàng có sản phẩm hay không
 if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     // Nhận thông tin người dùng từ session
@@ -31,7 +31,7 @@ if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 
     // Thêm dữ liệu vào bảng "order_food"
     $order_date = date('Y-m-d H:i:s');
-    $sql_order = "INSERT INTO `order_food` (order_date, customer_id, total_order, delivery_address) VALUES ('$order_date', '$user_id', '$total_order', '$delivery_address')";
+    $sql_order = "INSERT INTO `order_food` (order_date, customer_id, total_order, payment_methods, delivery_address) VALUES ('$order_date', '$user_id', '$total_order', '$payment_methods', '$delivery_address')";
     $result_order = mysqli_query($conn, $sql_order);
 
     if(!$result_order) {

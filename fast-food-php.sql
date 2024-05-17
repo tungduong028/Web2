@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 17, 2024 lúc 08:34 AM
+-- Thời gian đã tạo: Th5 17, 2024 lúc 11:41 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -66,7 +66,9 @@ INSERT INTO `cart` (`ID`, `Food_ID`, `Quantity`, `Total`) VALUES
 (2, 4, 1, 20000),
 (3, 2, 1, 10000),
 (3, 4, 1, 20000),
-(3, 5, 1, 20000);
+(3, 5, 1, 20000),
+(4, 2, 1, 10000),
+(7, 2, 1, 10000);
 
 -- --------------------------------------------------------
 
@@ -126,17 +128,19 @@ CREATE TABLE `customer_address` (
   `ID` int(11) NOT NULL,
   `User_ID` int(11) NOT NULL,
   `address` varchar(250) NOT NULL,
-  `phone` varchar(12) NOT NULL
+  `phone` varchar(12) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `customer_address`
 --
 
-INSERT INTO `customer_address` (`ID`, `User_ID`, `address`, `phone`) VALUES
-(1, 3, '123, HCM', '0334567891'),
-(2, 1, '333 Binh Duong', '0334567891'),
-(3, 3, '123 , P.THP , Ca Mau', '0334567891');
+INSERT INTO `customer_address` (`ID`, `User_ID`, `address`, `phone`, `status`) VALUES
+(1, 3, '123, HCM', '0334567667', 1),
+(2, 1, '333 Binh Duong', '0334567891', 1),
+(3, 3, '123 , P.THP , Ca Mau', '0334567891', 1),
+(5, 3, '123 34s', '0318737212', 0);
 
 -- --------------------------------------------------------
 
@@ -175,6 +179,7 @@ CREATE TABLE `order_food` (
   `Customer_ID` int(11) NOT NULL,
   `order_date` date NOT NULL,
   `total_order` int(11) NOT NULL,
+  `payment_methods` int(10) NOT NULL,
   `delivery_address` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `status2` tinyint(1) NOT NULL DEFAULT 0
@@ -184,9 +189,30 @@ CREATE TABLE `order_food` (
 -- Đang đổ dữ liệu cho bảng `order_food`
 --
 
-INSERT INTO `order_food` (`id`, `Customer_ID`, `order_date`, `total_order`, `delivery_address`, `status`, `status2`) VALUES
-(2, 3, '2024-05-17', 30000, 1, 1, 0),
-(3, 3, '2024-05-17', 50000, 3, 1, 0);
+INSERT INTO `order_food` (`id`, `Customer_ID`, `order_date`, `total_order`, `payment_methods`, `delivery_address`, `status`, `status2`) VALUES
+(2, 3, '2024-05-17', 30000, 1, 1, 1, 0),
+(3, 3, '2024-05-17', 50000, 1, 3, 1, 0),
+(4, 3, '2024-05-17', 10000, 1, 1, 1, 0),
+(7, 3, '2024-05-17', 10000, 1, 3, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `payment_methods`
+--
+
+CREATE TABLE `payment_methods` (
+  `ID` int(10) NOT NULL,
+  `name_method` varchar(100) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `payment_methods`
+--
+
+INSERT INTO `payment_methods` (`ID`, `name_method`, `status`) VALUES
+(1, 'Thanh toán khi nhận hàng', 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -237,7 +263,14 @@ ALTER TABLE `food`
 ALTER TABLE `order_food`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_delivery_address` (`delivery_address`),
-  ADD KEY `fk_customer_id` (`Customer_ID`);
+  ADD KEY `fk_customer_id` (`Customer_ID`),
+  ADD KEY `fk_payment_method` (`payment_methods`);
+
+--
+-- Chỉ mục cho bảng `payment_methods`
+--
+ALTER TABLE `payment_methods`
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -265,7 +298,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT cho bảng `customer_address`
 --
 ALTER TABLE `customer_address`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `food`
@@ -277,7 +310,13 @@ ALTER TABLE `food`
 -- AUTO_INCREMENT cho bảng `order_food`
 --
 ALTER TABLE `order_food`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT cho bảng `payment_methods`
+--
+ALTER TABLE `payment_methods`
+  MODIFY `ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -307,7 +346,8 @@ ALTER TABLE `food`
 --
 ALTER TABLE `order_food`
   ADD CONSTRAINT `fk_customer_id` FOREIGN KEY (`Customer_ID`) REFERENCES `customer` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_delivery_address` FOREIGN KEY (`delivery_address`) REFERENCES `customer_address` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_delivery_address` FOREIGN KEY (`delivery_address`) REFERENCES `customer_address` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_payment_method` FOREIGN KEY (`payment_methods`) REFERENCES `payment_methods` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

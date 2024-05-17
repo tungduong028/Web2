@@ -78,8 +78,12 @@
 
                 <tr>
                     <td colspan="2">
-                        <input type="submit" name="change-info" value="Change Infomation" class="btn-confirm">
-                        <input type="submit" name="change-pass" value="Change Password" class="btn-confirm">
+                        <br>
+                        <input type="submit" name="change-info" value="Change Infomation" class="btn btn-primary">
+                        <br><br>
+                        <input type="submit" name="change-pass" value="Change Password" class="btn btn-primary">
+                        <br><br>
+                        <input type="submit" name="change-address" value="Address List" class="btn btn-primary">
                     </td>
                 </tr>
 
@@ -104,7 +108,7 @@
 
     if(isset($_POST['change-address']))
     {
-        header('location:'.SITEURL.'customer/update-address.php');
+        header('location:'.SITEURL.'customer/manage-address.php');
     }
 
 ?>

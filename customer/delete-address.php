@@ -7,7 +7,7 @@
     $id = $_GET['id'];
 
     // 2. Create SQL query to delete admin
-    $sql = "DELETE FROM customer_address WHERE id=$id";
+    $sql = "UPDATE customer_address SET status = '0' WHERE id = $id";
 
     // Execute the query
     $res = mysqli_query($conn, $sql);
