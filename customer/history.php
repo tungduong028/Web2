@@ -15,6 +15,7 @@ include('patials/menu.php');
                 <th>Phương thức thanh toán</th>
                 <th>Địa chỉ giao hàng</th>
                 <th>Trạng thái</th>
+                <th>Vận chuyển</th>
             </tr>
 
             <?php
@@ -29,7 +30,7 @@ include('patials/menu.php');
                 $user_id = $row_user['ID'];
 
                 $sql = "
-                    SELECT o.id, o.order_date, o.total_order, pm.name_method, ca.address, ca.phone, o.status 
+                    SELECT o.id, o.order_date, o.total_order, pm.name_method, ca.address, ca.phone, o.status , o.status2
                     FROM order_food o
                     JOIN payment_methods pm ON o.payment_methods = pm.ID
                     JOIN customer_address ca ON o.delivery_address = ca.ID
@@ -49,7 +50,8 @@ include('patials/menu.php');
                             $total_order = $row['total_order'];
                             $name_method = $row['name_method'];
                             $delivery_address = $row['address'] . ', ' . $row['phone'];
-                            $status = $row['status'] == 1 ? 'Đã giao' : 'Đang xử lý';
+                            $status = $row['status'] == 1 ? 'Đã xác nhận' : 'Hủy đơn';
+                            $status2 = $row['status2'] == 1 ? 'Đã giao hàng' : 'Đang vận chuyển';
                             ?>
                             <tr>
                                 <td><?php echo $id; ?></td>
@@ -58,6 +60,7 @@ include('patials/menu.php');
                                 <td><?php echo $name_method; ?></td>
                                 <td><?php echo $delivery_address; ?></td>
                                 <td><?php echo $status; ?></td>
+                                <td><?php echo $status2; ?></td>
                             </tr>
                             <?php
                         }

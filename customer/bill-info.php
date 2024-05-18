@@ -27,22 +27,27 @@ $res_cart = mysqli_query($conn, $sql_cart);
 <div class="main-content">
     <div class="wrapper">
         <h1>Thông tin hóa đơn</h1>
+        <br>
         <p><strong>Mã đơn hàng:</strong> <?php echo $order['id']; ?></p>
+        <br>
         <p><strong>Ngày đặt hàng:</strong> <?php echo $order['order_date']; ?></p>
+        <br>
         <p><strong>Tổng giá trị đơn hàng:</strong> <?php echo number_format($order['total_order'], 0, ",", "."); ?> VNĐ</p>
+        <br>
         <p><strong>Địa chỉ giao hàng:</strong> <?php 
             $sql_address = "SELECT * FROM customer_address WHERE ID = '{$order['delivery_address']}'";
             $res_address = mysqli_query($conn, $sql_address);
             $address = mysqli_fetch_assoc($res_address);
             echo $address['address'] . " - " . $address['phone'];
         ?></p>
+        <br>
         <p><strong>Phương thức thanh toán:</strong> <?php 
             $sql_payment = "SELECT * FROM payment_methods WHERE id = '{$order['payment_methods']}'";
             $res_payment = mysqli_query($conn, $sql_payment);
             $payment = mysqli_fetch_assoc($res_payment);
             echo $payment['name_method'];
         ?></p>
-        
+        <br>
         <h2>Chi tiết đơn hàng</h2>
         <table class="table-full">
             <tr>
