@@ -1,8 +1,8 @@
 <?php include('patials/menu.php'); ?>
 
 <div class="main-content">
-    <div class="wrapper">
-        <h1>Change Password</h1>
+    <div class="wrapper" style="margin-left: 10%; margin-top: 30px">
+        <h1 >Change Password</h1>
         <br><br>
 
         <form action="" method="POST">
@@ -25,7 +25,7 @@
                 <tr>
                     <td colspan="2">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
-                        <input type="submit" name="submit" value="Change Password" class="btn-confirm">
+                        <input type="submit" name="submit" value="Change Password" class="btn btn-primary">
                     </td>
                 </tr>
 

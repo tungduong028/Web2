@@ -2,7 +2,7 @@
 
 <div class="main-content">
     <div class="wrapper">
-        <h1>Change Information</h1>
+        <h1 style="margin-left: 10%; margin-top: 30px">Change Information</h1>
         <br><br>
 
         <?php    
@@ -22,7 +22,7 @@
 
         <form action="" method="POST">
 
-            <table class="table-30">
+            <table class="table-30" style="margin-left: 10%">
                 <tr>
                     <td>Name: </td>
                     <td>
@@ -47,7 +47,7 @@
                 <tr>
                     <td colspan="2">
                         <input type="hidden" name="id" value="<?php echo $id; ?>">
-                        <input type="submit" name="submit" value="Change Infomation" class="btn-confirm">
+                        <input type="submit" name="submit" value="Change Infomation" class=" btn btn-primary">
                     </td>
                 </tr>
 

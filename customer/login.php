@@ -89,7 +89,7 @@
                     exit();
                 }   
             } else {
-                $_SESSION['login'] = "<div class='error text-center'>Username or Password did not match.</div>";
+                $_SESSION['login'] = "<div class='error text-center'>Username or password did not match.</div>";
                 header('location:'.SITEURL.'customer/login.php');
                 exit();
             }
