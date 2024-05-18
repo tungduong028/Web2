@@ -18,7 +18,7 @@
 
         <?php 
             // Số sản phẩm mỗi trang
-            $products_per_page = 2;
+            $products_per_page = 6;
 
             // Lấy trang hiện tại từ URL
             $current_page = isset($_GET['page']) ? $_GET['page'] : 1;

@@ -55,7 +55,7 @@
                     <th>ID_Order</th>
                     <th>Date </th>
                     <th>Total</th>
-                    <th>Actions</th>
+                    <th>Transports</th>
                     <th>Status </th>
                     <th>Details </th>
                 </tr>
@@ -102,15 +102,18 @@
                   }
 
                   // $sql = "SELECT cart.ID as cartid, cart.Status as CartStatus, order_food.id as orderid, order_food.order_date, order_food.status as OrderStatus FROM cart INNER JOIN order_food ON cart.ID = order_food.id_cart $whereClause";
-                  $sql = "SELECT cart.ID as cartid, order_food.Status as CartStatus, 
-                  order_food.id as orderid, order_food.order_date, order_food.status as OrderStatus, order_food.total_order,
-                  customer_address.address as DeliveryAddress, 
-                  customer.name
-                  FROM cart 
-                  INNER JOIN order_food ON cart.ID = order_food.id 
-                  INNER JOIN customer_address ON cart.delivery_address = customer_address.ID 
-                  INNER JOIN customer ON cart.User_id = customer.ID
-                  $whereClause";
+                  $sql = "SELECT 
+                  order_food.id AS orderid, 
+                  order_food.order_date, 
+                  order_food.total_order, 
+                  order_food.status AS ostatus, 
+                  order_food.status2 AS transtatus, 
+                  customer.name AS customer_name, 
+                  customer_address.address AS delivery_address 
+                  FROM order_food 
+                  INNER JOIN customer ON order_food.Customer_ID = customer.ID 
+                  INNER JOIN customer_address ON order_food.delivery_address = customer_address.ID
+                  $whereClause ";
                   // Thực hiện truy vấn và hiển thị kết quả
                   //..............................................
                   $result = $conn->query($sql);
@@ -119,42 +122,42 @@
                 if ($result->num_rows > 0) {
                   $id_sp = [];
                     while($row = $result->fetch_assoc()) {
-                      $id_current = $row['cartid'];
+                      $id_current = $row['orderid'];
                       if ($id_current != $id_sp) {
 
                         echo "<tr>";
                         echo "<td>".$count++."</td>";
-                        echo "<td>".$row["cartid"]."</td>";
+                        echo "<td>".$row["orderid"]."</td>";
                         echo "<td>".$row["order_date"]."</td>";
                         echo "<td>".$row["total_order"].".vnd"."</td>";
                       
                       //status cart
                         echo "<td>";
-                          if ( $row["CartStatus"] == 1) {
-                            $cart_active = "btn-update";
-                            $active1 = "Đã xác nhận";
+                          if ( $row["transtatus"] == 1) {
+                            $tran_active = "btn-update";
+                            $active1 = "Đã giao hàng";
 
                           }
                           else {
-                            $cart_active = "btn-delete";
-                            $active1 = "Chưa xác nhận";
+                            $tran_active = "btn-delete";
+                            $active1 = "Đang vận chuyển";
                           }
-                          echo "<a href='" . SITEURL . "admin/status-cart.php?ID=".$row["cartid"]."&status=".$row["CartStatus"]."' class='$cart_active'>$active1</a>";
+                          echo "<a href='" . SITEURL . "admin/status-cart.php?ID=".$row["orderid"]."&status=".$row["transtatus"]."' class='$tran_active'>$active1</a>";
                         echo  "</td>";
                        
                         // status order
                         echo "<td>";
                             
-                            if ($row["OrderStatus"] == 1) {
+                            if ($row["ostatus"] == 1) {
                               $order_active = "btn-update";
-                              $active2 = "Thành công";
+                              $active2 = "Đã xác nhận";
 
                             }
                             else {
                               $order_active = "btn-delete";
                               $active2 = "Huỷ đơn";
                             }
-                            echo "<a href='" . SITEURL . "admin/status-order.php?ID=".$row["orderid"]."&status=".$row["OrderStatus"]."' class='$order_active'>$active2</a>";
+                            echo "<a href='" . SITEURL . "admin/status-order.php?ID=".$row["orderid"]."&status=".$row["ostatus"]."' class='$order_active'>$active2</a>";
                         echo "</td>";
 
                         //details
@@ -176,56 +179,53 @@
                 // ......................................................................
                 }
                 else {
-                $sql = "SELECT 
-                cart.ID as cartid, order_food.Status as CartStatus, 
-                order_food.id as orderid, order_food.order_date, order_food.status as OrderStatus, order_food.total_order 
-                FROM cart INNER JOIN order_food ON cart.ID = order_food.id";
+                $sql = "SELECT * FROM order_food";
                 $result = $conn->query($sql);
                 $count = 1;
                 if ($result->num_rows > 0) {
                   $id_sp = [];
                     while($row = $result->fetch_assoc()) {
-                      $id_current = $row['cartid'];
+                      $id_current = $row['id'];
                       if ($id_current != $id_sp) {
 
                         echo "<tr>";
                         echo "<td>".$count++."</td>";
-                        echo "<td>".$row["cartid"]."</td>";
+                        echo "<td>".$row["id"]."</td>";
                         echo "<td>".$row["order_date"]."</td>";
                         echo "<td>".$row["total_order"].".vnd"."</td>";
 
                       //status cart
                         echo "<td>";
-                          if ( $row["CartStatus"] == 1) {
+                          if ( $row["status2"] == 1) {
                             $cart_active = "btn-update";
-                            $active1 = "Đã xác nhận";
+                            $active1 = "Đã giao hàng";
 
                           }
                           else {
                             $cart_active = "btn-delete";
-                            $active1 = "Chưa xác nhận";
+                            $active1 = "Đang vận chuyển";
                           }
-                          echo "<a href='" . SITEURL . "admin/status-cart.php?ID=".$row["cartid"]."&status=".$row["CartStatus"]."' class='$cart_active'>$active1</a>";
+                          echo "<a href='" . SITEURL . "admin/status-cart.php?ID=".$row["id"]."&status=".$row["status2"]."' class='$cart_active'>$active1</a>";
                         echo  "</td>";
                        
                         // status order
                         echo "<td>";
                             
-                            if ($row["OrderStatus"] == 1) {
+                            if ($row["status"] == 1) {
                               $order_active = "btn-update";
-                              $active2 = "Thành công";
+                              $active2 = "Đã xác nhận";
 
                             }
                             else {
                               $order_active = "btn-delete";
                               $active2 = "Huỷ đơn";
                             }
-                            echo "<a href='" . SITEURL . "admin/status-order.php?ID=".$row["orderid"]."&status=".$row["OrderStatus"]."' class='$order_active'>$active2</a>";
+                            echo "<a href='" . SITEURL . "admin/status-order.php?ID=".$row["id"]."&status=".$row["status"]."' class='$order_active'>$active2</a>";
                         echo "</td>";
 
                         //details
                         echo "<td>
-                                <a href='". SITEURL. "admin/detail-order.php?id=".$row["orderid"]."' class='btn-update'>View Details</a>
+                                <a href='". SITEURL. "admin/detail-order.php?id=".$row["id"]."' class='btn-update'>View Details</a>
                               </td>";
 
                         

@@ -47,6 +47,9 @@
                         <a href="cart.php">Giỏ hàng</a>
                     </li>
                     <li>
+                        <a href="history.php">Lịch sử mua hàng</a>
+                    </li>
+                    <li>
                         <a href="logout.php">Đăng xuất</a>
                     </li>
                 </ul>

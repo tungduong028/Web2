@@ -1,8 +1,5 @@
 <?php
-session_start();
-
-// Kết nối CSDL
-include('config/constants.php');
+include('patials/menu.php');
 
 // Kiểm tra xem form đã được gửi chưa
 if(isset($_POST['add_to_cart'])) {
@@ -12,7 +9,8 @@ if(isset($_POST['add_to_cart'])) {
     $food_title = isset($_POST['food_title']) ? $_POST['food_title'] : null;
     $food_price = isset($_POST['food_price']) ? $_POST['food_price'] : null;
     $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : 1;
-
+    $search = isset($_POST['search']) ? $_POST['search'] : ""; // Lấy từ khóa tìm kiếm
+    $page = isset($_POST['page']) ? $_POST['page'] : 1; // Lấy trang hiện tại
     // Kiểm tra xem các biến POST có giá trị hợp lệ không
     if ($food_id && $food_title && $food_price && is_numeric($quantity)) {
         // Kiểm tra xem giỏ hàng đã được khởi tạo chưa
