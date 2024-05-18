@@ -19,7 +19,7 @@
         //echo "Admin deleted";
         //  Create session variable to display message
         $_SESSION['address-delete'] = "<div class='success'>Address Deleted Successfully.</div>";
-        header('location:'.SITEURL.'customer/update-address.php');
+        header('location:'.SITEURL.'customer/manage-address.php');
     }
     else
     {
@@ -27,7 +27,7 @@
         //echo("Failed to delete admin");
 
         $_SESSION['address-delete'] = "<div class='error'>Failed to Delete Address. Try Again Later.</div>";
-        header('location:'.SITEURL.'customer/update-address.php');
+        header('location:'.SITEURL.'customer/manage-address.php');
     }
 
     // 3. Redirect to manage admin page with message (success/error)

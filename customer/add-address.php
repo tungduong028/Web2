@@ -3,11 +3,11 @@
 <!-- Main content -->
 <div class="main-content">
     <div class="wrapper">
-            <h1>Add New Address</h1>
+            <h1 style="margin-left: 10%; margin-top: 30px">Add New Address</h1>
             <br />
             <form action="" method="POST">
 
-                <table class="table-30">
+                <table class="table-30" style="margin-left: 10%">
                     <tr>
                         <td>Address: </td>
                         <td>
@@ -24,7 +24,7 @@
 
                     <tr>
                         <td colspan="2">
-                            <input type="submit" name="submit" value="Add Address" class="btn-update">
+                            <input type="submit" name="submit" value="Add Address" class="btn btn-primary">
                         </td>
                     </tr>
                 </table>
@@ -64,7 +64,7 @@
         //Kiểm tra xem đã lưu được hay không
         if($res==TRUE){
             $_SESSION['add-address'] = "<div class='success'>Address Added Successfully.</div>";
-            header("location:".SITEURL.'customer/update-address.php');
+            header("location:".SITEURL.'customer/manage-address.php');
         }
         else{
             $_SESSION['add-address'] = "<div class='error'>Failed To Add Address.</div>";

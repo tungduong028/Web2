@@ -2,7 +2,7 @@
 
 <div class="main-content">
     <div class="container">
-        <h1>Thông tin khách hàng</h1>
+        <h1 style="margin-top: 30px">Thông tin khách hàng</h1>
         <br><br>
 
         <?php

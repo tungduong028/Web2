@@ -1,8 +1,8 @@
 <?php include('patials/menu.php'); ?>
 
-<div class="main-content">
+<div class="main-content" style="margin-left: 10%; margin-top: 30px">
     <div class="wrapper">
-        <h1>Address List</h1>
+        <h1 >Address List</h1>
 
         <br>
 
@@ -24,7 +24,7 @@
         <br><br><br>
 
         <!-- Button to add admin -->
-        <a href="<?php echo SITEURL; ?>customer/add-address.php" class="btn-confirm">Add New Address</a>
+        <a href="<?php echo SITEURL; ?>customer/add-address.php" class="btn btn-primary">Add New Address</a>
 
         <br /><br /><br />
 
