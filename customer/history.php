@@ -7,7 +7,7 @@ include('patials/menu.php');
     <div class="wrapper">
         <h1 style="margin: 10px;">Lịch sử mua hàng</h1>
 
-        <table class="tbl-full">
+        <table class="table-full">
             <tr>
                 <th>ID</th>
                 <th>Ngày mua</th>

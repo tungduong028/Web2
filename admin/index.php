@@ -95,7 +95,7 @@ $conn->close();
         <!-- Form lựa chọn khoảng thời gian -->
         <form action="" method="post">
             <select name="time_period">
-                <option value="1" <?php if ($time_period == 1) echo 'selected'; ?>>Hôm nay</option>
+                <option value="0" <?php if ($time_period == 0) echo 'selected'; ?>>Hôm nay</option>
                 <option value="7" <?php if ($time_period == 7) echo 'selected'; ?>>7 ngày gần nhất</option>
                 <option value="30" <?php if ($time_period == 30) echo 'selected'; ?>>30 ngày gần nhất</option>
                 <option value="90" <?php if ($time_period == 90) echo 'selected'; ?>>90 ngày gần nhất</option>
@@ -123,35 +123,7 @@ $conn->close();
                 }
             ?>
         <!-- Hiển thị biểu đồ bán hàng -->
-        <div class="col-8 text-center">
-                    <canvas id="salesChart" width="400" height="400"></canvas>
-        </div>
-
-                <div class="clearfix"></div>
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-            var ctx = document.getElementById('salesChart').getContext('2d');
-            var salesChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: <?php echo json_encode(array_keys($chartData)); ?>,
-                    datasets: [{
-                        label: 'Buys',
-                        data: <?php echo json_encode(array_values($chartData)); ?>,
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        </script>
+        <!--  -->
         </div>
 
         
@@ -167,7 +139,7 @@ $conn->close();
                     <option value="30" <?php if ($num_food == 30) echo 'selected'; ?>>top 30</option>
                 </select>
                 <select name="time_period_food">
-                    <option value="1" <?php if ($time_period_food == 1) echo 'selected'; ?>>Hôm nay</option>
+                    <option value="0" <?php if ($time_period_food == 0) echo 'selected'; ?>>Hôm nay</option>
                     <option value="7" <?php if ($time_period_food == 7) echo 'selected'; ?>>7 ngày gần nhất</option>
                     <option value="30" <?php if ($time_period_food == 30) echo 'selected'; ?>>30 ngày gần nhất</option>
                     <option value="90" <?php if ($time_period_food == 90) echo 'selected'; ?>>90 ngày gần nhất</option>
