@@ -41,7 +41,7 @@
                         <a href="advanced-search.php">Tìm nâng cao</a>
                     </li>
                     <li>
-                        <a href="infomation.php" style="margin-left: 70px"><?php echo $_SESSION['user']; ?></a>
+                        <a href="infomation.php"><?php echo $_SESSION['user']; ?></a>
                     </li>
                     <li>
                         <a href="cart.php">Giỏ hàng</a>

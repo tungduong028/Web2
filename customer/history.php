@@ -5,9 +5,9 @@ include('patials/menu.php');
 <!-- Main content -->
 <div class="main-content">
     <div class="wrapper">
-        <h1 style="margin: 10px;">Lịch sử mua hàng</h1>
+        <h1 style="margin-left: 150px; margin-top: 20px">Lịch sử mua hàng</h1>
 
-        <table class="tbl-full">
+        <table class="table-full" style="margin-top: 30px">
             <tr>
                 <th>ID</th>
                 <th>Ngày mua</th>
