@@ -38,7 +38,7 @@
 
         <?php 
             // Số món ăn trên mỗi trang
-            $per_page = 2;
+            $per_page = 4;
 
             // Truy vấn tổng số món ăn trong danh mục
             $sql_count_foods = "SELECT COUNT(*) AS total FROM food WHERE category_id = $category_id AND active='Yes'";

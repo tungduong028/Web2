@@ -150,7 +150,7 @@
                             
                             if ($row["ostatus"] == 1) {
                               $order_active = "btn-update";
-                              $active2 = "Thành công";
+                              $active2 = "Đã xác nhận";
 
                             }
                             else {
@@ -213,7 +213,7 @@
                             
                             if ($row["status"] == 1) {
                               $order_active = "btn-update";
-                              $active2 = "Đã thanh toán";
+                              $active2 = "Đã xác nhận";
 
                             }
                             else {

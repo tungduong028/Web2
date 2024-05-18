@@ -69,7 +69,7 @@
 
         <?php 
             // Số sản phẩm trên mỗi trang
-            $per_page = 4;
+            $per_page = 6;
 
             // Tính tổng số sản phẩm
             $sql_count = "SELECT COUNT(*) AS total FROM food WHERE active='Yes'";
