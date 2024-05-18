@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 17, 2024 lúc 11:41 AM
+-- Thời gian đã tạo: Th5 18, 2024 lúc 03:21 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.1.25
 
@@ -42,7 +42,8 @@ INSERT INTO `admin` (`id`, `full_name`, `username`, `password`) VALUES
 (1, 'Dương Thanh Tùng', 'tung028', '123456'),
 (2, 'Thanh Tùng', 'tung029', '123456'),
 (11, 'Administrator', 'Administrator', 'admin'),
-(12, 'a', 'a', '1');
+(12, 'a', 'a', '1'),
+(13, 'admin', 'admin', '123456');
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,13 @@ INSERT INTO `cart` (`ID`, `Food_ID`, `Quantity`, `Total`) VALUES
 (3, 4, 1, 20000),
 (3, 5, 1, 20000),
 (4, 2, 1, 10000),
-(7, 2, 1, 10000);
+(7, 2, 1, 10000),
+(8, 2, 1, 10000),
+(9, 2, 1, 10000),
+(9, 5, 1, 20000),
+(9, 4, 2, 40000),
+(10, 2, 1, 10000),
+(10, 4, 4, 80000);
 
 -- --------------------------------------------------------
 
@@ -89,8 +96,8 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `title`, `image`, `show_on_home`, `active`) VALUES
-(2, 'burger', 'Food_category_6629c559b7ab4.jpg', 'Yes', 'Yes'),
-(3, 'pizza', 'Food_category_663301b984b42.jpg', 'Yes', 'Yes'),
+(2, 'Burger', 'Food_category_6629c559b7ab4.jpg', 'Yes', 'Yes'),
+(3, 'Pizza', 'Food_category_663301b984b42.jpg', 'Yes', 'Yes'),
 (4, 'Chicken', 'Food_category_6646c5f5cdaac.jpg', 'Yes', 'Yes');
 
 -- --------------------------------------------------------
@@ -164,9 +171,27 @@ CREATE TABLE `food` (
 --
 
 INSERT INTO `food` (`id`, `name`, `description`, `price`, `image`, `category_id`, `show_on_home`, `active`) VALUES
-(2, '     pizza', '     aaa', 10000, 'Food-Name9248.jpg', 3, 'Yes', 'Yes'),
-(4, '    chicken', '    aaa', 20000, 'Food-Name427.jpg', 2, 'Yes', 'Yes'),
-(5, 'burger', 'aaa', 20000, 'Food-Name7679.jpg', 2, 'Yes', 'Yes');
+(2, 'pizza', 'aaa', 10000, 'Food-Name3609.jpg', 3, 'Yes', 'Yes'),
+(4, 'chicken', 'aaa', 20000, 'Food-Name427.jpg', 4, 'Yes', 'Yes'),
+(5, 'burger', 'aaa', 20000, 'Food-Name7679.jpg', 2, 'Yes', 'Yes'),
+(6, 'pizza 02', 'aaaa', 10000, 'Food-Name1905.jpg', 3, 'Yes', 'Yes'),
+(7, 'burger 02', 'aaa', 20000, 'Food-Name3892.jpg', 2, 'Yes', 'Yes'),
+(8, 'chicken 02', 'aaa', 30000, 'Food-Name9376.jpg', 4, 'Yes', 'Yes'),
+(9, 'pizza 03', 'aaa', 15000, 'Food-Name1747.jpg', 3, 'Yes', 'Yes'),
+(10, 'burger 03', 'aaa', 25000, 'Food-Name633.jpg', 2, 'Yes', 'Yes'),
+(11, 'chicken 03', 'aaa', 18000, 'Food-Name2514.jpg', 4, 'Yes', 'Yes'),
+(12, 'pizza 04', 'aaa', 22000, 'Food-Name2851.jpg', 3, 'Yes', 'Yes'),
+(13, 'burger 04', 'aaa', 30000, 'Food-Name8218.jpg', 2, 'Yes', 'Yes'),
+(14, 'chicken 04', 'aaa', 25000, 'Food-Name9340.jpg', 4, 'Yes', 'Yes'),
+(15, 'pizza 05', 'aaa', 20000, 'Food-Name7271.jpg', 3, 'Yes', 'Yes'),
+(16, 'burger 05', 'aaa', 25000, 'Food-Name9478.jpg', 2, 'Yes', 'Yes'),
+(17, 'chicken 05', 'aaa', 20000, 'Food-Name1501.jpg', 4, 'Yes', 'Yes'),
+(18, 'pizza 06', 'aaa', 23000, 'Food-Name2081.jpg', 3, 'Yes', 'Yes'),
+(19, 'burger 06', 'aaa', 19000, 'Food-Name6181.jpg', 2, 'Yes', 'Yes'),
+(20, 'chicken 06', 'aaa', 20000, 'Food-Name1086.jpg', 4, 'Yes', 'Yes'),
+(21, 'pizza 07', 'aaa', 15000, 'Food-Name1148.jpg', 3, 'Yes', 'Yes'),
+(22, 'burger 07', 'aaaa', 17000, 'Food-Name302.jpg', 2, 'Yes', 'Yes'),
+(23, 'chicken 07', 'aaaa', 23000, 'Food-Name4197.jpg', 4, 'Yes', 'Yes');
 
 -- --------------------------------------------------------
 
@@ -190,10 +215,13 @@ CREATE TABLE `order_food` (
 --
 
 INSERT INTO `order_food` (`id`, `Customer_ID`, `order_date`, `total_order`, `payment_methods`, `delivery_address`, `status`, `status2`) VALUES
-(2, 3, '2024-05-17', 30000, 1, 1, 1, 0),
-(3, 3, '2024-05-17', 50000, 1, 3, 1, 0),
-(4, 3, '2024-05-17', 10000, 1, 1, 1, 0),
-(7, 3, '2024-05-17', 10000, 1, 3, 1, 0);
+(2, 3, '2024-05-17', 30000, 1, 1, 1, 1),
+(3, 3, '2024-05-17', 50000, 1, 3, 1, 1),
+(4, 3, '2024-05-17', 10000, 1, 1, 1, 1),
+(7, 3, '2024-05-17', 10000, 1, 3, 1, 1),
+(8, 3, '2024-05-17', 10000, 1, 3, 1, 1),
+(9, 3, '2024-05-17', 70000, 1, 1, 1, 1),
+(10, 3, '2024-05-18', 90000, 1, 5, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -280,7 +308,7 @@ ALTER TABLE `payment_methods`
 -- AUTO_INCREMENT cho bảng `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -304,13 +332,13 @@ ALTER TABLE `customer_address`
 -- AUTO_INCREMENT cho bảng `food`
 --
 ALTER TABLE `food`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT cho bảng `order_food`
 --
 ALTER TABLE `order_food`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `payment_methods`
