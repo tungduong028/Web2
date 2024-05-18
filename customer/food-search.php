@@ -32,7 +32,7 @@
         }
 
         // Lấy trang hiện tại từ URL
-        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 
         // Tính offset
         $offset = ($current_page - 1) * $products_per_page;
@@ -89,6 +89,8 @@
                             <input type="hidden" name="image" value="<?php echo $image; ?>">
                             <input type="hidden" name="food_title" value="<?php echo $title; ?>">
                             <input type="hidden" name="food_price" value="<?php echo $price; ?>">
+                            <input type="hidden" name="search" value="<?php echo $search; ?>"> <!-- Thêm từ khóa tìm kiếm -->
+                            <input type="hidden" name="page" value="<?php echo $current_page; ?>"> <!-- Thêm trang hiện tại -->
                             <input type="number" name="quantity" value="1" min="1">
                             <input type="submit" name="add_to_cart" class="btn btn-primary" value="Thêm vào giỏ hàng">
                         </form>
