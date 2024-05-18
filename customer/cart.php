@@ -6,7 +6,7 @@ include('patials/menu.php');
 <!-- Main content -->
 <div class="main-content">
     <div class="wrapper">
-        <h1 style="margin: 10px;">Giỏ hàng</h1>
+        <h1 style="margin-left: 80px; margin-top: 30px">Giỏ hàng</h1>
 
         <?php
         // Kiểm tra xem giỏ hàng có sản phẩm hay không
@@ -49,7 +49,7 @@ include('patials/menu.php');
                     <td><?php echo number_format($food_price, 0, ",", "."); ?> VNĐ</td>
                     <td><?php echo $food_quantity; ?></td>
                     <td><?php echo number_format($food_total, 0, ",", "."); ?> VNĐ</td>
-                    <td><a href="remove-from-cart.php?food_id=<?php echo $key; ?>" class="btn-danger">Xóa</a></td>
+                    <td><a href="remove-from-cart.php?food_id=<?php echo $key; ?>" class="error">Xóa</a></td>
                 </tr>
                 <?php
             }
