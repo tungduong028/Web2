@@ -59,7 +59,7 @@
                         <th>S.N</th>
                         <th>Title</th>
                         <th>Image</th>
-                        <th>Featured</th>
+                        <th>Show on home</th>
                         <th>Active</th>
                         <th>Action</th>
                     </tr>
